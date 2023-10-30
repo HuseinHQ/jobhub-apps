@@ -1,25 +1,52 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Table from "./pages/Table";
+import SideNav from "./components/SideNav";
 
 function App() {
-  const [page, setPage] = useState("a");
+  const sidenav = useRef(null);
+  const sidenavTrigger = useRef(null);
+  const sidenavCloseButton = useRef(null);
+  const burger = useRef(null);
+  const topBread = useRef(null);
+  const bottomBread = useRef(null);
+
+  useEffect(() => {
+    sidenav.current = document.querySelector("aside");
+    sidenavTrigger.current = document.querySelector("[data-sidenav-trigger]");
+    sidenavCloseButton.current = document.querySelector("[data-sidenav-close]");
+    burger.current = sidenavTrigger.current.firstElementChild;
+    topBread.current = burger.current.firstElementChild;
+    bottomBread.current = burger.current.lastElementChild;
+  }, []);
+
+  function onHamburgerButtonClick() {
+    sidenavCloseButton.current.classList.toggle("hidden");
+    sidenav.current.classList.toggle("translate-x-0");
+    sidenav.current.classList.toggle("shadow-soft-xl");
+
+    topBread.current.classList.toggle("translate-x-[5px]");
+    bottomBread.current.classList.toggle("translate-x-[5px]");
+  }
+
+  const [page, setPage] = useState("dashboard");
   const renderPage = () => {
     if (page === "login") {
       return <Login setPage={setPage} />;
     } else if (page === "dashboard") {
-      return <Dashboard />;
+      return <Dashboard onHamburgerButtonClick={onHamburgerButtonClick} />;
     } else {
-      return <Table />;
+      return <Table onHamburgerButtonClick={onHamburgerButtonClick} />;
     }
   };
 
   return (
     <>
+      {page !== "login" ? <SideNav setPage={setPage} onHamburgerButtonClick={onHamburgerButtonClick} page={page} /> : ""}
       {renderPage()}
-      <Footer />
+      {page === "login" ? <Footer /> : ""}
     </>
   );
 }
