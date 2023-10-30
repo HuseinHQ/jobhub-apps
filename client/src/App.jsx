@@ -36,11 +36,25 @@ function App() {
     if (page === "login") {
       return <Login setPage={setPage} />;
     } else if (page === "dashboard") {
-      return <Dashboard onHamburgerButtonClick={onHamburgerButtonClick} />;
+      return <Dashboard onHamburgerButtonClick={onHamburgerButtonClick} jobs={jobs} fetchJobs={fetchJobs} />;
     } else {
-      return <Table onHamburgerButtonClick={onHamburgerButtonClick} />;
+      return <Table onHamburgerButtonClick={onHamburgerButtonClick} jobs={jobs} fetchJobs={fetchJobs} />;
     }
   };
+
+  const [jobs, setJobs] = useState([]);
+  async function fetchJobs() {
+    try {
+      let response = await fetch("http://localhost:3000/jobs");
+      if (!response.ok) {
+        throw { name: "fetch_error" };
+      }
+      response = await response.json();
+      setJobs(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>

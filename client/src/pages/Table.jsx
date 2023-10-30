@@ -1,29 +1,17 @@
 import PropType from "prop-types";
 import Navbar from "../components/Navbar";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export default function Table({ onHamburgerButtonClick }) {
+export default function Table({ onHamburgerButtonClick, jobs, fetchJobs }) {
   Table.propTypes = {
     onHamburgerButtonClick: PropType.func.isRequired,
+    jobs: PropType.array.isRequired,
+    fetchJobs: PropType.func.isRequired,
   };
-
-  const [jobs, setJobs] = useState([]);
-
-  async function fetchJobs() {
-    try {
-      let response = await fetch("http://localhost:3000/jobs");
-      if (!response.ok) {
-        throw { name: "fetch_error" };
-      }
-      response = await response.json();
-      setJobs(response);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   useEffect(() => {
     fetchJobs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -58,9 +46,9 @@ export default function Table({ onHamburgerButtonClick }) {
                         </tr>
                       </thead>
                       <tbody>
-                        {jobs.map((job) => {
+                        {jobs.map((job, index) => {
                           return (
-                            <tr key={job.id}>
+                            <tr key={index}>
                               <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                   <div className="flex flex-col justify-center">
