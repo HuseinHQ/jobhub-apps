@@ -7,13 +7,13 @@ export default function Dashboard({ onHamburgerButtonClick, jobs, fetchJobs, com
     onHamburgerButtonClick: PropType.func.isRequired,
     jobs: PropType.array.isRequired,
     fetchJobs: PropType.func.isRequired,
-    companies: PropType.array,
-    fetchCompanies: PropType.func,
+    companies: PropType.array.isRequired,
+    fetchCompanies: PropType.func.isRequired,
   };
 
   useEffect(() => {
     fetchJobs();
-    // fetchCompanies();
+    fetchCompanies();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,7 +55,7 @@ export default function Dashboard({ onHamburgerButtonClick, jobs, fetchJobs, com
                       <div>
                         <p className="mb-0 font-sans font-semibold leading-normal text-sm">Total Company</p>
                         <h5 className="mb-0 font-bold">
-                          {0}
+                          {companies.length}
                           {/* <span className="leading-normal text-sm font-weight-bolder text-lime-500">+3%</span> */}
                         </h5>
                       </div>
