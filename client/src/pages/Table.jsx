@@ -2,9 +2,9 @@ import PropType from "prop-types";
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
 
-export default function Table({ onHamburgerButtonClick, jobs, fetchJobs }) {
+export default function Table({ sidenavToggleHandler, jobs, fetchJobs }) {
   Table.propTypes = {
-    onHamburgerButtonClick: PropType.func.isRequired,
+    sidenavToggleHandler: PropType.func.isRequired,
     jobs: PropType.array.isRequired,
     fetchJobs: PropType.func.isRequired,
   };
@@ -17,7 +17,7 @@ export default function Table({ onHamburgerButtonClick, jobs, fetchJobs }) {
   return (
     <>
       <main className="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
-        <Navbar onHamburgerButtonClick={onHamburgerButtonClick} title="Tables" />
+        <Navbar sidenavToggleHandler={sidenavToggleHandler} title="Tables" />
         <div className="w-full px-6 py-6 mx-auto">
           <div className="flex flex-wrap -mx-3">
             <div className="flex-none w-full max-w-full px-3">

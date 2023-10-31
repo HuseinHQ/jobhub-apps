@@ -1,9 +1,9 @@
 import PropType from "prop-types";
 
-export default function Navbar({ onHamburgerButtonClick, title }) {
+export default function Navbar({ sidenavToggleHandler, title }) {
   Navbar.propTypes = {
     title: PropType.string.isRequired,
-    onHamburgerButtonClick: PropType.func.isRequired,
+    sidenavToggleHandler: PropType.func.isRequired,
   };
 
   return (
@@ -60,7 +60,7 @@ export default function Navbar({ onHamburgerButtonClick, title }) {
             </li>
             <li className="flex items-center pl-4 xl:hidden">
               <a
-                onClick={onHamburgerButtonClick}
+                onClick={sidenavToggleHandler}
                 href="#"
                 className="block p-0 text-sm transition-all ease-nav-brand text-slate-500"
                 data-sidenav-trigger

@@ -22,7 +22,7 @@ function App() {
     bottomBread.current = burger.current.lastElementChild;
   }, []);
 
-  function onHamburgerButtonClick() {
+  function sidenavToggleHandler() {
     sidenavCloseButton.current.classList.toggle("hidden");
     sidenav.current.classList.toggle("translate-x-0");
     sidenav.current.classList.toggle("shadow-soft-xl");
@@ -38,15 +38,17 @@ function App() {
     } else if (page === "dashboard") {
       return (
         <Dashboard
-          onHamburgerButtonClick={onHamburgerButtonClick}
+          sidenavToggleHandler={sidenavToggleHandler}
           jobs={jobs}
           fetchJobs={fetchJobs}
           companies={companies}
           fetchCompanies={fetchCompanies}
         />
       );
-    } else {
-      return <Table onHamburgerButtonClick={onHamburgerButtonClick} jobs={jobs} fetchJobs={fetchJobs} />;
+    } else if (page === "table") {
+      return <Table sidenavToggleHandler={sidenavToggleHandler} jobs={jobs} fetchJobs={fetchJobs} />;
+    } else if (page === "register") {
+      return <h1>INI REGISTER</h1>;
     }
   };
 
@@ -80,7 +82,7 @@ function App() {
 
   return (
     <>
-      {page !== "login" ? <SideNav setPage={setPage} onHamburgerButtonClick={onHamburgerButtonClick} page={page} /> : ""}
+      {page !== "login" ? <SideNav setPage={setPage} sidenavToggleHandler={sidenavToggleHandler} page={page} /> : ""}
       {renderPage()}
       {page === "login" ? <Footer /> : ""}
     </>

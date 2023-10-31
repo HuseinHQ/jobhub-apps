@@ -2,9 +2,9 @@ import PropType from "prop-types";
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
 
-export default function Dashboard({ onHamburgerButtonClick, jobs, fetchJobs, companies, fetchCompanies }) {
+export default function Dashboard({ sidenavToggleHandler, jobs, fetchJobs, companies, fetchCompanies }) {
   Dashboard.propTypes = {
-    onHamburgerButtonClick: PropType.func.isRequired,
+    sidenavToggleHandler: PropType.func.isRequired,
     jobs: PropType.array.isRequired,
     fetchJobs: PropType.func.isRequired,
     companies: PropType.array.isRequired,
@@ -20,7 +20,7 @@ export default function Dashboard({ onHamburgerButtonClick, jobs, fetchJobs, com
   return (
     <>
       <main className="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
-        <Navbar onHamburgerButtonClick={onHamburgerButtonClick} title="Dashboard" />
+        <Navbar sidenavToggleHandler={sidenavToggleHandler} title="Dashboard" />
 
         <div className="w-full px-6 py-6 mx-auto">
           <div className="flex flex-wrap -mx-3">
