@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Table from "./pages/Table";
 import SideNav from "./components/SideNav";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   const sidenav = useRef(null);
@@ -48,7 +49,7 @@ function App() {
     } else if (page === "table") {
       return <Table sidenavToggleHandler={sidenavToggleHandler} jobs={jobs} fetchJobs={fetchJobs} />;
     } else if (page === "register") {
-      return <h1>INI REGISTER</h1>;
+      return <RegisterPage sidenavToggleHandler={sidenavToggleHandler} />;
     }
   };
 
