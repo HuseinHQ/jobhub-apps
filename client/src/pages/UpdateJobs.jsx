@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 
 export default function UpdateJobs() {
-  const { sidenavToggleHandler } = useOutletContext();
+  const { sidenavToggleHandler, companies, fetchCompanies } = useOutletContext();
   const { id } = useParams();
 
   async function fetchJobById() {
@@ -31,13 +31,14 @@ export default function UpdateJobs() {
   }
   useEffect(() => {
     fetchJobById();
+    fetchCompanies();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [jobForm, setJobForm] = useState({
     title: "",
     description: "",
-    companyId: "",
+    companyId: 0,
     authorId: 1,
     jobType: "",
   });
@@ -182,17 +183,23 @@ export default function UpdateJobs() {
 
                   <label className="mb-2 ml-1 font-bold text-xs text-slate-700">Company</label>
                   <div className="mb-4">
-                    <input
-                      type="text"
-                      className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                      placeholder="Company"
-                      aria-label="Company"
+                    <select
+                      className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full  rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                      aria-label="Company Id"
                       aria-describedby="companyId-addon"
                       name="companyId"
                       value={jobForm.companyId}
                       onChange={inputHandler}
-                      autoComplete="companyId"
-                    />
+                    >
+                      <option value="0" disabled>
+                        -- Select Company --
+                      </option>
+                      {companies.map((company) => (
+                        <option value={company.id} key={company.id}>
+                          {company.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <label className="mb-2 ml-1 font-bold text-xs text-slate-700">Job Type</label>

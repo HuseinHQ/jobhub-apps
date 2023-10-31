@@ -11,6 +11,25 @@ export default function Jobs() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  async function deleteHandler(e, id) {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/jobs/" + id, {
+        method: "delete",
+        headers: {
+          access_token: localStorage.access_token,
+          "Content-Type": "application.json",
+        },
+      });
+      if (!response.ok) {
+        throw { name: "fetch_error" };
+      }
+      fetchJobs();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <main className="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
@@ -79,13 +98,15 @@ export default function Jobs() {
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <Link to={"/jobs/edit/" + job.id} href="" className="text-xs font-semibold leading-tight text-blue-500">
-                                  {" "}
-                                  Edit{" "}
+                                  Edit
                                 </Link>
 
-                                <a href="" className="text-xs font-semibold leading-tight text-red-500 ml-2">
-                                  {" "}
-                                  Delete{" "}
+                                <a
+                                  onClick={(e) => deleteHandler(e, job.id)}
+                                  href=""
+                                  className="text-xs font-semibold leading-tight text-red-500 ml-2"
+                                >
+                                  Delete
                                 </a>
                               </td>
                             </tr>
