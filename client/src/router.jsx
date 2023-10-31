@@ -3,6 +3,9 @@ import App from "./App";
 import Login from "./pages/Login";
 import Footer from "./components/Footer";
 import Dashboard from "./pages/Dashboard";
+import Jobs from "./pages/Jobs";
+import RegisterPage from "./pages/RegisterPage";
+import Companies from "./pages/Companies";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +24,18 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Dashboard />,
+      },
+      {
+        path: "jobs",
+        element: <Jobs />,
+      },
+      {
+        path: "register",
+        element: <RegisterPage />,
+      },
+      {
+        path: "companies",
+        element: <Companies />,
       },
     ],
   },

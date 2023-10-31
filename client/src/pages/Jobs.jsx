@@ -1,13 +1,9 @@
-import PropType from "prop-types";
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
+import { useOutletContext } from "react-router";
 
-export default function Table({ sidenavToggleHandler, jobs, fetchJobs }) {
-  Table.propTypes = {
-    sidenavToggleHandler: PropType.func.isRequired,
-    jobs: PropType.array.isRequired,
-    fetchJobs: PropType.func.isRequired,
-  };
+export default function Jobs() {
+  const { sidenavToggleHandler, jobs, fetchJobs } = useOutletContext();
 
   useEffect(() => {
     fetchJobs();
@@ -17,7 +13,7 @@ export default function Table({ sidenavToggleHandler, jobs, fetchJobs }) {
   return (
     <>
       <main className="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
-        <Navbar sidenavToggleHandler={sidenavToggleHandler} title="Tables" />
+        <Navbar sidenavToggleHandler={sidenavToggleHandler} title="Jobs" />
         <div className="w-full px-6 py-6 mx-auto">
           <div className="flex flex-wrap -mx-3">
             <div className="flex-none w-full max-w-full px-3">

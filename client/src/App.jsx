@@ -83,7 +83,7 @@ function App() {
 
   return (
     <>
-      <SideNav />
+      <SideNav sidenavToggleHandler={sidenavToggleHandler} />
       <Outlet context={{ jobs, fetchJobs, companies, fetchCompanies, sidenavToggleHandler }} />
     </>
   );

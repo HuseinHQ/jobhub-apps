@@ -1,11 +1,9 @@
-import PropType from "prop-types";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
+import { useOutletContext } from "react-router";
 
-export default function RegisterPage({ sidenavToggleHandler }) {
-  RegisterPage.propTypes = {
-    sidenavToggleHandler: PropType.func.isRequired,
-  };
+export default function RegisterPage() {
+  const { sidenavToggleHandler } = useOutletContext();
 
   const [registerForm, setRegisterForm] = useState({
     username: "",
