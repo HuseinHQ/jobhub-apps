@@ -1,15 +1,9 @@
-import PropType from "prop-types";
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
+import { useOutletContext } from "react-router";
 
-export default function Dashboard({ sidenavToggleHandler, jobs, fetchJobs, companies, fetchCompanies }) {
-  Dashboard.propTypes = {
-    sidenavToggleHandler: PropType.func.isRequired,
-    jobs: PropType.array.isRequired,
-    fetchJobs: PropType.func.isRequired,
-    companies: PropType.array.isRequired,
-    fetchCompanies: PropType.func.isRequired,
-  };
+export default function Dashboard() {
+  const { jobs, fetchJobs, companies, fetchCompanies, sidenavToggleHandler } = useOutletContext();
 
   useEffect(() => {
     fetchJobs();

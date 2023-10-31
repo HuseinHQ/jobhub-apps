@@ -1,11 +1,12 @@
 import PropType from "prop-types";
+import { useParams } from "react-router";
 
-export default function SideNav({ setPage, sidenavToggleHandler, page }) {
-  SideNav.propTypes = {
-    setPage: PropType.func.isRequired,
-    sidenavToggleHandler: PropType.func.isRequired,
-    page: PropType.string.isRequired,
-  };
+export default function SideNav({ sidenavToggleHandler }) {
+  // SideNav.propTypes = {
+  //   setPage: PropType.func.isRequired,
+  //   sidenavToggleHandler: PropType.func.isRequired,
+  //   page: PropType.string.isRequired,
+  // };
 
   function clickHandler(e, pageName) {
     e.preventDefault();
