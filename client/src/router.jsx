@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Jobs from "./pages/Jobs";
 import RegisterPage from "./pages/RegisterPage";
 import Companies from "./pages/Companies";
+import CreateJobs from "./pages/CreateJobs";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "jobs",
         element: <Jobs />,
+      },
+      {
+        path: "jobs/:id",
+        element: <CreateJobs />,
       },
       {
         path: "register",

@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
 import { useOutletContext } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function Jobs() {
   const { sidenavToggleHandler, jobs, fetchJobs } = useOutletContext();
@@ -75,10 +76,11 @@ export default function Jobs() {
                                 )}
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <a href="" className="text-xs font-semibold leading-tight text-blue-500">
+                                <Link to={"/jobs/" + job.id} href="" className="text-xs font-semibold leading-tight text-blue-500">
                                   {" "}
                                   Edit{" "}
-                                </a>
+                                </Link>
+
                                 <a href="" className="text-xs font-semibold leading-tight text-red-500 ml-2">
                                   {" "}
                                   Delete{" "}

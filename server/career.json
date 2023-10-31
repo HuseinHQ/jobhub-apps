@@ -1,6 +1,7 @@
 {
   "jobs": [
     {
+      "id": 1,
       "title": "Software Engineer",
       "description": "Developing web applications and maintaining existing software.",
       "companyId": 1,
@@ -8,6 +9,7 @@
       "jobType": "full time"
     },
     {
+      "id": 2,
       "title": "Marketing Coordinator",
       "description": "Planning and executing marketing campaigns for our products.",
       "companyId": 2,
@@ -15,6 +17,7 @@
       "jobType": "full time"
     },
     {
+      "id": 3,
       "title": "Graphic Designer",
       "description": "Creating visually appealing graphics for various projects.",
       "companyId": 3,
@@ -22,6 +25,7 @@
       "jobType": "part time"
     },
     {
+      "id": 4,
       "title": "Customer Support Representative",
       "description": "Assisting customers with inquiries and resolving issues.",
       "companyId": 4,
@@ -29,6 +33,7 @@
       "jobType": "full time"
     },
     {
+      "id": 5,
       "title": "Accountant",
       "description": "Managing financial records and preparing reports.",
       "companyId": 5,
@@ -36,6 +41,7 @@
       "jobType": "full time"
     },
     {
+      "id": 6,
       "title": "Sales Associate",
       "description": "Selling products and providing exceptional customer service.",
       "companyId": 1,
@@ -43,6 +49,7 @@
       "jobType": "part time"
     },
     {
+      "id": 7,
       "title": "Content Writer",
       "description": "Creating engaging and informative content for various platforms.",
       "companyId": 2,
@@ -50,6 +57,7 @@
       "jobType": "part time"
     },
     {
+      "id": 8,
       "title": "Data Analyst",
       "description": "Analyzing data and providing insights to support business decisions.",
       "companyId": 3,
@@ -57,6 +65,7 @@
       "jobType": "full time"
     },
     {
+      "id": 9,
       "title": "HR Manager",
       "description": "Managing human resources functions and employee relations.",
       "companyId": 4,
@@ -64,6 +73,7 @@
       "jobType": "full time"
     },
     {
+      "id": 10,
       "title": "Delivery Driver",
       "description": "Delivering goods to customers in a timely and safe manner.",
       "companyId": 5,
@@ -73,6 +83,7 @@
   ],
   "companies": [
     {
+      "id": 1,
       "name": "Tech Innovators Inc.",
       "companyLogo": "https://example.com/logos/tech-innovators.png",
       "location": "San Francisco, CA",
@@ -80,6 +91,7 @@
       "description": "A leading tech company focused on innovation and cutting-edge solutions."
     },
     {
+      "id": 2,
       "name": "Global Marketing Solutions",
       "companyLogo": "https://example.com/logos/global-marketing.png",
       "location": "New York, NY",
@@ -87,6 +99,7 @@
       "description": "Specializing in marketing and advertising strategies for global brands."
     },
     {
+      "id": 3,
       "name": "DesignCraft Studios",
       "companyLogo": "https://example.com/logos/designcraft-studios.png",
       "location": "Los Angeles, CA",
@@ -94,6 +107,7 @@
       "description": "Creative design and branding agency offering top-notch design services."
     },
     {
+      "id": 4,
       "name": "CustomerCare Pro",
       "companyLogo": "https://example.com/logos/customercare-pro.png",
       "location": "Chicago, IL",
@@ -101,6 +115,7 @@
       "description": "Dedicated to providing excellent customer support solutions."
     },
     {
+      "id": 5,
       "name": "Financial Wizards LLC",
       "companyLogo": "https://example.com/logos/financial-wizards.png",
       "location": "Boston, MA",
@@ -108,6 +123,7 @@
       "description": "Experts in financial services and investment strategies."
     },
     {
+      "id": 6,
       "name": "SalesGenius Co.",
       "companyLogo": "https://example.com/logos/salesgenius.png",
       "location": "Seattle, WA",
@@ -115,6 +131,7 @@
       "description": "Driving sales success through innovative strategies and solutions."
     },
     {
+      "id": 7,
       "name": "Content Creators Network",
       "companyLogo": "https://example.com/logos/content-creators.png",
       "location": "Austin, TX",
@@ -122,6 +139,7 @@
       "description": "A network of talented content creators and storytellers."
     },
     {
+      "id": 8,
       "name": "Data Insights Ltd.",
       "companyLogo": "https://example.com/logos/data-insights.png",
       "location": "Denver, CO",
@@ -129,6 +147,7 @@
       "description": "Unlocking valuable insights from data for informed decisions."
     },
     {
+      "id": 9,
       "name": "HR Solutions Group",
       "companyLogo": "https://example.com/logos/hr-solutions.png",
       "location": "Miami, FL",
@@ -136,6 +155,7 @@
       "description": "Comprehensive human resources and talent management solutions."
     },
     {
+      "id": 10,
       "name": "Express Logistics Inc.",
       "companyLogo": "https://example.com/logos/express-logistics.png",
       "location": "Dallas, TX",
