@@ -8,6 +8,8 @@ import RegisterPage from "./pages/RegisterPage";
 import Companies from "./pages/Companies";
 import CreateJobs from "./pages/CreateJobs";
 import UpdateJobs from "./pages/UpdateJobs";
+import CreateCompanies from "./pages/CreateCompanies";
+import UpdateCompanies from "./pages/UpdateCompanies";
 
 const authProtect = () => {
   if (localStorage.access_token) {
@@ -37,6 +39,10 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
+        path: "register",
+        element: <RegisterPage />,
+      },
+      {
         path: "jobs",
         element: <Jobs />,
       },
@@ -49,12 +55,16 @@ const router = createBrowserRouter([
         element: <UpdateJobs />,
       },
       {
-        path: "register",
-        element: <RegisterPage />,
-      },
-      {
         path: "companies",
         element: <Companies />,
+      },
+      {
+        path: "companies/add",
+        element: <CreateCompanies />,
+      },
+      {
+        path: "companies/edit/:id",
+        element: <UpdateCompanies />,
       },
     ],
   },
