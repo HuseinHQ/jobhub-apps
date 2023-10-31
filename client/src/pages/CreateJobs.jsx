@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 export default function CreateJobs() {
   const { sidenavToggleHandler } = useOutletContext();
@@ -98,10 +98,32 @@ export default function CreateJobs() {
     setSkills(skillArray);
   }
 
+  async function postJobs(data) {
+    try {
+      console.log(data);
+      const response = await fetch("http://localhost:3000/jobs", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          access_token: localStorage.access_token,
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw { name: "fetch_error" };
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const navigate = useNavigate();
   function submitHandler(e) {
     e.preventDefault();
-    console.log(jobForm);
-    console.log(skills);
+    const obj = jobForm;
+    obj.skills = skills;
+    postJobs(obj);
+    navigate("/jobs");
   }
 
   return (

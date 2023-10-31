@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 
 export default function UpdateJobs() {
   const { sidenavToggleHandler } = useOutletContext();
@@ -8,7 +8,9 @@ export default function UpdateJobs() {
 
   async function fetchJobById() {
     try {
-      let response = await fetch("http://localhost:3000/jobs/" + id);
+      let response = await fetch("http://localhost:3000/jobs/" + id, {
+        headers: { access_token: localStorage.access_token },
+      });
       if (!response.ok) {
         throw { name: "fetch error" };
       }
@@ -125,10 +127,32 @@ export default function UpdateJobs() {
     setSkills(skillArray);
   }
 
+  async function postJobs(data) {
+    try {
+      console.log(data);
+      const response = await fetch("http://localhost:3000/jobs/" + id, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          access_token: localStorage.access_token,
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw { name: "fetch_error" };
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const navigate = useNavigate();
   function submitHandler(e) {
     e.preventDefault();
-    console.log(jobForm);
-    console.log(skills);
+    const obj = jobForm;
+    obj.skills = skills;
+    postJobs(obj);
+    navigate("/jobs");
   }
 
   return (

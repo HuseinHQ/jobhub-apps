@@ -9,7 +9,7 @@ export default function RegisterPage() {
     username: "",
     email: "",
     password: "",
-    role: "",
+    role: "admin",
     phoneNumber: "",
     address: "",
   });
@@ -23,9 +23,27 @@ export default function RegisterPage() {
     });
   }
 
+  async function postUser() {
+    try {
+      const response = await fetch("http://localhost:3000/users", {
+        method: "post",
+        headers: {
+          access_token: localStorage.access_token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registerForm),
+      });
+      if (!response.ok) {
+        throw { name: "fetch error" };
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   function submitHandler(e) {
     e.preventDefault();
-    console.log(registerForm);
+    postUser();
   }
 
   return (
@@ -35,9 +53,9 @@ export default function RegisterPage() {
 
         <div className="w-full px-6 py-6 mx-auto">
           <div className="flex flex-wrap">
-            <form role="form" onSubmit={submitHandler}>
-              <div className="flex">
-                <div>
+            <form role="form" onSubmit={submitHandler} className="w-full">
+              <div className="flex flex-wrap lg:flex-nowrap" style={{ gap: "1rem" }}>
+                <div className="w-full">
                   <label className="mb-2 ml-1 font-bold text-xs text-slate-700">Username</label>
                   <div className="mb-4">
                     <input
@@ -67,17 +85,7 @@ export default function RegisterPage() {
                       autoComplete="current-email"
                     />
                   </div>
-                  <div className="text-center">
-                    <button
-                      type="submit"
-                      className="inline-block w-full px-6 py-3 mt-6 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85"
-                    >
-                      Sign in
-                    </button>
-                  </div>
-                </div>
 
-                <div>
                   <label className="mb-2 ml-1 font-bold text-xs text-slate-700">Password</label>
                   <div className="mb-4">
                     <input
@@ -92,7 +100,9 @@ export default function RegisterPage() {
                       autoComplete="current-password"
                     />
                   </div>
+                </div>
 
+                <div className="w-full">
                   <label className="mb-2 ml-1 font-bold text-xs text-slate-700">Phone Number</label>
                   <div className="mb-4">
                     <input
@@ -121,6 +131,15 @@ export default function RegisterPage() {
                       onChange={inputHandler}
                       autoComplete="address"
                     />
+                  </div>
+
+                  <div className="text-center">
+                    <button
+                      type="submit"
+                      className="inline-block w-full px-6 py-3 mt-6 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85"
+                    >
+                      Register
+                    </button>
                   </div>
                 </div>
               </div>

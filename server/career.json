@@ -219,6 +219,21 @@
           "level": "Advanced"
         }
       ]
+    },
+    {
+      "title": "ab",
+      "description": "a",
+      "companyId": "a",
+      "authorId": 1,
+      "jobType": "part time",
+      "skills": [
+        {
+          "jobId": 0,
+          "name": "wood",
+          "level": "beginner"
+        }
+      ],
+      "id": 11
     }
   ],
   "companies": [
@@ -304,5 +319,15 @@
     }
   ],
   "skills": [],
-  "users": []
+  "users": [
+    {
+      "username": "apaya",
+      "email": "apaya@mail.com",
+      "password": "apaya",
+      "role": "admin",
+      "phoneNumber": "apaya",
+      "address": "apaya",
+      "id": 1
+    }
+  ]
 }

@@ -31,7 +31,9 @@ function App() {
   const [jobs, setJobs] = useState([]);
   async function fetchJobs() {
     try {
-      let response = await fetch("http://localhost:3000/jobs");
+      let response = await fetch("http://localhost:3000/jobs", {
+        headers: { access_token: localStorage.access_token },
+      });
       if (!response.ok) {
         throw { name: "fetch_error" };
       }
@@ -45,7 +47,9 @@ function App() {
   const [companies, setCompanies] = useState([]);
   async function fetchCompanies() {
     try {
-      let response = await fetch("http://localhost:3000/companies");
+      let response = await fetch("http://localhost:3000/companies", {
+        headers: { access_token: localStorage.access_token },
+      });
       if (!response.ok) {
         throw { name: "fetch_error" };
       }
