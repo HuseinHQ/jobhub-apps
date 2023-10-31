@@ -1,5 +1,5 @@
 import PropType from "prop-types";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 export default function SideNav({ sidenavToggleHandler }) {
   SideNav.propTypes = {
@@ -12,6 +12,13 @@ export default function SideNav({ sidenavToggleHandler }) {
   function clickHandler(e, to) {
     e.preventDefault();
     navigate(to);
+  }
+
+  function logout(e) {
+    e.preventDefault();
+
+    localStorage.removeItem("access_token");
+    navigate("/login");
   }
 
   function selectedLi() {
@@ -187,7 +194,7 @@ export default function SideNav({ sidenavToggleHandler }) {
             <a
               className="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
               href=""
-              onClick={(e) => clickHandler(e, "/register")}
+              onClick={logout}
             >
               <div className="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                 <svg
@@ -230,7 +237,7 @@ export default function SideNav({ sidenavToggleHandler }) {
           </li>
         </>
       );
-    } else if (pathname === "/jobs") {
+    } else if (pathname.includes("/jobs")) {
       return (
         <>
           <li className="mt-0.5 w-full">
@@ -401,7 +408,7 @@ export default function SideNav({ sidenavToggleHandler }) {
             <a
               className="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
               href=""
-              onClick={(e) => clickHandler(e, "/register")}
+              onClick={logout}
             >
               <div className="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                 <svg
@@ -615,7 +622,7 @@ export default function SideNav({ sidenavToggleHandler }) {
             <a
               className="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
               href=""
-              onClick={(e) => clickHandler(e, "/register")}
+              onClick={logout}
             >
               <div className="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                 <svg
@@ -829,7 +836,7 @@ export default function SideNav({ sidenavToggleHandler }) {
             <a
               className="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
               href=""
-              onClick={(e) => clickHandler(e, "/register")}
+              onClick={logout}
             >
               <div className="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                 <svg
@@ -883,14 +890,14 @@ export default function SideNav({ sidenavToggleHandler }) {
           className="absolute top-0 right-0 hidden p-4 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:hidden"
           data-sidenav-close
         ></i>
-        <a className="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700" href="#">
+        <Link className="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700" href="#">
           <img
             src="/assets/img/logo-ct.png"
             className="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-8"
             alt="main_logo"
           />
-          <span className="ml-1 font-semibold transition-all duration-200 ease-nav-brand">Soft UI Dashboard</span>
-        </a>
+          <span className="ml-1 font-semibold transition-all duration-200 ease-nav-brand">JobHub Dashboard</span>
+        </Link>
       </div>
 
       <hr className="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />

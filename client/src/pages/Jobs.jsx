@@ -19,8 +19,14 @@ export default function Jobs() {
           <div className="flex flex-wrap -mx-3">
             <div className="flex-none w-full max-w-full px-3">
               <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-                <div className="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                <div className="flex justify-between p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                   <h6>Job List</h6>
+                  <Link
+                    to="/jobs/add"
+                    className="px-6 py-3 font-bold text-center text-white align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-green-600 to-lime-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85"
+                  >
+                    New Jobs
+                  </Link>
                 </div>
                 <div className="flex-auto px-0 pt-0 pb-2">
                   <div className="p-0 overflow-x-auto">
@@ -54,14 +60,10 @@ export default function Jobs() {
                                   </div>
                                 </div>
                               </td>
-                              <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                {/* <p className="mb-0 text-xs font-semibold leading-tight">Manager</p> */}
+                              <td className="p-2 align-middle bg-transparent border-b shadow-transparent">
                                 <p className="mb-0 text-xs leading-tight text-slate-400">{job.description}</p>
                               </td>
                               <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                {/* <span className="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
-                                  Online
-                                </span> */}
                                 <p className="mb-0 text-xs font-semibold leading-tight">{job.companyId}</p>
                               </td>
                               <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -76,7 +78,7 @@ export default function Jobs() {
                                 )}
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <Link to={"/jobs/" + job.id} href="" className="text-xs font-semibold leading-tight text-blue-500">
+                                <Link to={"/jobs/edit/" + job.id} href="" className="text-xs font-semibold leading-tight text-blue-500">
                                   {" "}
                                   Edit{" "}
                                 </Link>

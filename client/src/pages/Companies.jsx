@@ -29,13 +29,13 @@ export default function Companies() {
                           <th className="px-6 py-3 pl-4 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                             Name
                           </th>
-                          <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                          <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                             Location
                           </th>
-                          <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                          <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                             Email
                           </th>
-                          <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                          <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                             Description
                           </th>
                           <th className="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
@@ -62,11 +62,11 @@ export default function Companies() {
                               <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <p className="mb-0 text-xs font-semibold leading-tight">{company.location}</p>
                               </td>
-                              <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                              <td className="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <p className="mb-0 text-xs font-semibold leading-tight">{company.email}</p>
                               </td>
-                              <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <p className="mb-0 text-xs font-semibold leading-tight">{company.description}</p>
+                              <td className="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                <p className="mb-0 text-xs leading-tight text-slate-400">{company.description}</p>
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <a href="" className="text-xs font-semibold leading-tight text-blue-500">
