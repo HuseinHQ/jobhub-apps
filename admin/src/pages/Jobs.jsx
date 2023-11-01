@@ -1,33 +1,25 @@
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
-import { useOutletContext } from "react-router";
-import { Link } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteJobs, fetchJobs } from "../stores/actions/actionCreator";
+import { useSnackbar } from "notistack";
 
 export default function Jobs() {
-  const { sidenavToggleHandler, jobs, fetchJobs } = useOutletContext();
+  const { sidenavToggleHandler } = useOutletContext();
+
+  const jobs = useSelector((state) => state.jobReducer.jobs);
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    fetchJobs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(fetchJobs());
   }, []);
 
-  async function deleteHandler(e, id) {
+  function deleteHandler(e, id) {
     e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/jobs/" + id, {
-        method: "delete",
-        headers: {
-          access_token: localStorage.access_token,
-          "Content-Type": "application.json",
-        },
-      });
-      if (!response.ok) {
-        throw { name: "fetch_error" };
-      }
-      fetchJobs();
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(deleteJobs(id));
+    enqueueSnackbar(`Job with id ${id} deleted successfully!`, { variant: "success" });
   }
 
   return (
@@ -46,6 +38,7 @@ export default function Jobs() {
                   >
                     New Jobs
                   </Link>
+                  {/* <CustomizedSnackbars /> */}
                 </div>
                 <div className="flex-auto px-0 pt-0 pb-2">
                   <div className="p-0 overflow-x-auto">

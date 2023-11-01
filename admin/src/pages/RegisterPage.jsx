@@ -1,9 +1,11 @@
 import Navbar from "../components/Navbar";
 import { useState } from "react";
 import { useOutletContext } from "react-router";
+import { useSnackbar } from "notistack";
 
 export default function RegisterPage() {
   const { sidenavToggleHandler } = useOutletContext();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [registerForm, setRegisterForm] = useState({
     username: "",
@@ -44,6 +46,15 @@ export default function RegisterPage() {
   function submitHandler(e) {
     e.preventDefault();
     postUser();
+    setRegisterForm({
+      username: "",
+      email: "",
+      password: "",
+      role: "admin",
+      phoneNumber: "",
+      address: "",
+    });
+    enqueueSnackbar("New admin registered successfully!", { variant: "success" });
   }
 
   return (

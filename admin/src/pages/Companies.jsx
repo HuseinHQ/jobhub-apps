@@ -1,32 +1,24 @@
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
 import { useOutletContext, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCompanies, fetchCompanies } from "../stores/actions/actionCreator";
+import { useSnackbar } from "notistack";
 
 export default function Companies() {
-  const { sidenavToggleHandler, companies, fetchCompanies } = useOutletContext();
+  const { sidenavToggleHandler } = useOutletContext();
+  const companies = useSelector((state) => state.companyReducer.companies);
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    fetchCompanies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(fetchCompanies());
   }, []);
 
   async function deleteHandler(e, id) {
     e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/companies/" + id, {
-        method: "delete",
-        headers: {
-          access_token: localStorage.access_token,
-          "Content-Type": "application.json",
-        },
-      });
-      if (!response.ok) {
-        throw { name: "fetch_error" };
-      }
-      fetchCompanies();
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(deleteCompanies(id));
+    enqueueSnackbar(`Company with id ${id} deleted successfully!`, { variant: "success" });
   }
 
   return (
@@ -74,7 +66,7 @@ export default function Companies() {
                                 <div className="flex px-2 py-1">
                                   <div>
                                     <img
-                                      src={company.logo}
+                                      src={company.companyLogo}
                                       className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
                                       alt="company-logo"
                                     />
