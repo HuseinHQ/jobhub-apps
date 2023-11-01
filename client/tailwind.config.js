@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 import plugin from "tailwindcss/plugin";
+import flowbitePlugin from "flowbite/plugin";
 
 export default {
   mode: "jit",
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}"],
   presets: [],
   darkMode: "class",
   theme: {
@@ -1467,5 +1468,6 @@ export default {
         }),
       });
     }),
+    flowbitePlugin,
   ],
 };

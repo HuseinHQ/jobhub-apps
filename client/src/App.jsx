@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import Footer from "./components/Footer";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import Table from "./pages/Table";
 import SideNav from "./components/SideNav";
-import RegisterPage from "./pages/RegisterPage";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const sidenav = useRef(null);
@@ -32,31 +28,12 @@ function App() {
     bottomBread.current.classList.toggle("translate-x-[5px]");
   }
 
-  const [page, setPage] = useState("dashboard");
-  const renderPage = () => {
-    if (page === "login") {
-      return <Login setPage={setPage} />;
-    } else if (page === "dashboard") {
-      return (
-        <Dashboard
-          sidenavToggleHandler={sidenavToggleHandler}
-          jobs={jobs}
-          fetchJobs={fetchJobs}
-          companies={companies}
-          fetchCompanies={fetchCompanies}
-        />
-      );
-    } else if (page === "table") {
-      return <Table sidenavToggleHandler={sidenavToggleHandler} jobs={jobs} fetchJobs={fetchJobs} />;
-    } else if (page === "register") {
-      return <RegisterPage sidenavToggleHandler={sidenavToggleHandler} />;
-    }
-  };
-
   const [jobs, setJobs] = useState([]);
   async function fetchJobs() {
     try {
-      let response = await fetch("http://localhost:3000/jobs");
+      let response = await fetch("http://localhost:3000/jobs", {
+        headers: { access_token: localStorage.access_token },
+      });
       if (!response.ok) {
         throw { name: "fetch_error" };
       }
@@ -70,7 +47,9 @@ function App() {
   const [companies, setCompanies] = useState([]);
   async function fetchCompanies() {
     try {
-      let response = await fetch("http://localhost:3000/companies");
+      let response = await fetch("http://localhost:3000/companies", {
+        headers: { access_token: localStorage.access_token },
+      });
       if (!response.ok) {
         throw { name: "fetch_error" };
       }
@@ -83,9 +62,8 @@ function App() {
 
   return (
     <>
-      {page !== "login" ? <SideNav setPage={setPage} sidenavToggleHandler={sidenavToggleHandler} page={page} /> : ""}
-      {renderPage()}
-      {page === "login" ? <Footer /> : ""}
+      <SideNav sidenavToggleHandler={sidenavToggleHandler} />
+      <Outlet context={{ jobs, fetchJobs, companies, fetchCompanies, sidenavToggleHandler }} />
     </>
   );
 }

@@ -1,78 +1,229 @@
 {
   "jobs": [
     {
+      "id": 1,
       "title": "Software Engineer",
       "description": "Developing web applications and maintaining existing software.",
       "companyId": 1,
       "authorId": 1,
-      "jobType": "full time"
+      "jobType": "full time",
+      "skills": [
+        {
+          "id": 1,
+          "jobId": 1,
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "id": 2,
+          "jobId": 1,
+          "name": "React",
+          "level": "Advanced"
+        }
+      ]
     },
     {
+      "id": 2,
       "title": "Marketing Coordinator",
       "description": "Planning and executing marketing campaigns for our products.",
       "companyId": 2,
       "authorId": 1,
-      "jobType": "full time"
+      "jobType": "full time",
+      "skills": [
+        {
+          "id": 3,
+          "jobId": 2,
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "id": 4,
+          "jobId": 2,
+          "name": "React",
+          "level": "Advanced"
+        }
+      ]
     },
     {
+      "id": 3,
       "title": "Graphic Designer",
       "description": "Creating visually appealing graphics for various projects.",
       "companyId": 3,
       "authorId": 2,
-      "jobType": "part time"
+      "jobType": "part time",
+      "skills": [
+        {
+          "id": 5,
+          "jobId": 3,
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "id": 6,
+          "jobId": 3,
+          "name": "React",
+          "level": "Advanced"
+        }
+      ]
     },
     {
+      "id": 4,
       "title": "Customer Support Representative",
       "description": "Assisting customers with inquiries and resolving issues.",
       "companyId": 4,
       "authorId": 2,
-      "jobType": "full time"
+      "jobType": "full time",
+      "skills": [
+        {
+          "id": 7,
+          "jobId": 4,
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "id": 8,
+          "jobId": 4,
+          "name": "React",
+          "level": "Advanced"
+        }
+      ]
     },
     {
+      "id": 5,
       "title": "Accountant",
       "description": "Managing financial records and preparing reports.",
       "companyId": 5,
       "authorId": 1,
-      "jobType": "full time"
+      "jobType": "full time",
+      "skills": [
+        {
+          "id": 9,
+          "jobId": 5,
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "id": 10,
+          "jobId": 5,
+          "name": "React",
+          "level": "Advanced"
+        }
+      ]
     },
     {
+      "id": 6,
       "title": "Sales Associate",
       "description": "Selling products and providing exceptional customer service.",
       "companyId": 1,
       "authorId": 2,
-      "jobType": "part time"
+      "jobType": "part time",
+      "skills": [
+        {
+          "id": 11,
+          "jobId": 6,
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "id": 12,
+          "jobId": 6,
+          "name": "React",
+          "level": "Advanced"
+        }
+      ]
     },
     {
+      "id": 7,
       "title": "Content Writer",
       "description": "Creating engaging and informative content for various platforms.",
       "companyId": 2,
       "authorId": 1,
-      "jobType": "part time"
+      "jobType": "part time",
+      "skills": [
+        {
+          "id": 13,
+          "jobId": 7,
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "id": 14,
+          "jobId": 7,
+          "name": "React",
+          "level": "Advanced"
+        }
+      ]
     },
     {
+      "id": 8,
       "title": "Data Analyst",
       "description": "Analyzing data and providing insights to support business decisions.",
       "companyId": 3,
       "authorId": 1,
-      "jobType": "full time"
+      "jobType": "full time",
+      "skills": [
+        {
+          "id": 15,
+          "jobId": 8,
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "id": 16,
+          "jobId": 8,
+          "name": "React",
+          "level": "Advanced"
+        }
+      ]
     },
     {
+      "id": 9,
       "title": "HR Manager",
       "description": "Managing human resources functions and employee relations.",
       "companyId": 4,
       "authorId": 2,
-      "jobType": "full time"
+      "jobType": "full time",
+      "skills": [
+        {
+          "id": 17,
+          "jobId": 9,
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "id": 18,
+          "jobId": 9,
+          "name": "React",
+          "level": "Advanced"
+        }
+      ]
     },
     {
+      "id": 10,
       "title": "Delivery Driver",
       "description": "Delivering goods to customers in a timely and safe manner.",
       "companyId": 5,
       "authorId": 2,
-      "jobType": "part time"
+      "jobType": "part time",
+      "skills": [
+        {
+          "id": 19,
+          "jobId": 10,
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "id": 20,
+          "jobId": 10,
+          "name": "React",
+          "level": "Advanced"
+        }
+      ]
     }
   ],
   "companies": [
     {
+      "id": 1,
       "name": "Tech Innovators Inc.",
       "companyLogo": "https://example.com/logos/tech-innovators.png",
       "location": "San Francisco, CA",
@@ -80,6 +231,7 @@
       "description": "A leading tech company focused on innovation and cutting-edge solutions."
     },
     {
+      "id": 2,
       "name": "Global Marketing Solutions",
       "companyLogo": "https://example.com/logos/global-marketing.png",
       "location": "New York, NY",
@@ -87,6 +239,7 @@
       "description": "Specializing in marketing and advertising strategies for global brands."
     },
     {
+      "id": 3,
       "name": "DesignCraft Studios",
       "companyLogo": "https://example.com/logos/designcraft-studios.png",
       "location": "Los Angeles, CA",
@@ -94,6 +247,7 @@
       "description": "Creative design and branding agency offering top-notch design services."
     },
     {
+      "id": 4,
       "name": "CustomerCare Pro",
       "companyLogo": "https://example.com/logos/customercare-pro.png",
       "location": "Chicago, IL",
@@ -101,6 +255,7 @@
       "description": "Dedicated to providing excellent customer support solutions."
     },
     {
+      "id": 5,
       "name": "Financial Wizards LLC",
       "companyLogo": "https://example.com/logos/financial-wizards.png",
       "location": "Boston, MA",
@@ -108,6 +263,7 @@
       "description": "Experts in financial services and investment strategies."
     },
     {
+      "id": 6,
       "name": "SalesGenius Co.",
       "companyLogo": "https://example.com/logos/salesgenius.png",
       "location": "Seattle, WA",
@@ -115,6 +271,7 @@
       "description": "Driving sales success through innovative strategies and solutions."
     },
     {
+      "id": 7,
       "name": "Content Creators Network",
       "companyLogo": "https://example.com/logos/content-creators.png",
       "location": "Austin, TX",
@@ -122,6 +279,7 @@
       "description": "A network of talented content creators and storytellers."
     },
     {
+      "id": 8,
       "name": "Data Insights Ltd.",
       "companyLogo": "https://example.com/logos/data-insights.png",
       "location": "Denver, CO",
@@ -129,6 +287,7 @@
       "description": "Unlocking valuable insights from data for informed decisions."
     },
     {
+      "id": 9,
       "name": "HR Solutions Group",
       "companyLogo": "https://example.com/logos/hr-solutions.png",
       "location": "Miami, FL",
@@ -136,6 +295,7 @@
       "description": "Comprehensive human resources and talent management solutions."
     },
     {
+      "id": 10,
       "name": "Express Logistics Inc.",
       "companyLogo": "https://example.com/logos/express-logistics.png",
       "location": "Dallas, TX",
@@ -143,5 +303,16 @@
       "description": "Efficient logistics and supply chain solutions for businesses."
     }
   ],
-  "users": []
+  "skills": [],
+  "users": [
+    {
+      "username": "apaya",
+      "email": "apaya@mail.com",
+      "password": "apaya",
+      "role": "admin",
+      "phoneNumber": "apaya",
+      "address": "apaya",
+      "id": 1
+    }
+  ]
 }

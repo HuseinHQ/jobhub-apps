@@ -1,29 +1,51 @@
-import PropType from "prop-types";
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
+import { useOutletContext } from "react-router";
+import { Link } from "react-router-dom";
 
-export default function Table({ sidenavToggleHandler, jobs, fetchJobs }) {
-  Table.propTypes = {
-    sidenavToggleHandler: PropType.func.isRequired,
-    jobs: PropType.array.isRequired,
-    fetchJobs: PropType.func.isRequired,
-  };
+export default function Jobs() {
+  const { sidenavToggleHandler, jobs, fetchJobs } = useOutletContext();
 
   useEffect(() => {
     fetchJobs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  async function deleteHandler(e, id) {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/jobs/" + id, {
+        method: "delete",
+        headers: {
+          access_token: localStorage.access_token,
+          "Content-Type": "application.json",
+        },
+      });
+      if (!response.ok) {
+        throw { name: "fetch_error" };
+      }
+      fetchJobs();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <main className="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
-        <Navbar sidenavToggleHandler={sidenavToggleHandler} title="Tables" />
+        <Navbar sidenavToggleHandler={sidenavToggleHandler} title="Jobs" />
         <div className="w-full px-6 py-6 mx-auto">
           <div className="flex flex-wrap -mx-3">
             <div className="flex-none w-full max-w-full px-3">
               <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-                <div className="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                <div className="flex justify-between p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                   <h6>Job List</h6>
+                  <Link
+                    to="/jobs/add"
+                    className="px-6 py-3 font-bold text-center text-white align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-green-600 to-lime-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85"
+                  >
+                    New Jobs
+                  </Link>
                 </div>
                 <div className="flex-auto px-0 pt-0 pb-2">
                   <div className="p-0 overflow-x-auto">
@@ -57,14 +79,10 @@ export default function Table({ sidenavToggleHandler, jobs, fetchJobs }) {
                                   </div>
                                 </div>
                               </td>
-                              <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                {/* <p className="mb-0 text-xs font-semibold leading-tight">Manager</p> */}
+                              <td className="p-2 align-middle bg-transparent border-b shadow-transparent">
                                 <p className="mb-0 text-xs leading-tight text-slate-400">{job.description}</p>
                               </td>
                               <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                {/* <span className="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
-                                  Online
-                                </span> */}
                                 <p className="mb-0 text-xs font-semibold leading-tight">{job.companyId}</p>
                               </td>
                               <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -79,13 +97,16 @@ export default function Table({ sidenavToggleHandler, jobs, fetchJobs }) {
                                 )}
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <a href="" className="text-xs font-semibold leading-tight text-blue-500">
-                                  {" "}
-                                  Edit{" "}
-                                </a>
-                                <a href="" className="text-xs font-semibold leading-tight text-red-500 ml-2">
-                                  {" "}
-                                  Delete{" "}
+                                <Link to={"/jobs/edit/" + job.id} href="" className="text-xs font-semibold leading-tight text-blue-500">
+                                  Edit
+                                </Link>
+
+                                <a
+                                  onClick={(e) => deleteHandler(e, job.id)}
+                                  href=""
+                                  className="text-xs font-semibold leading-tight text-red-500 ml-2"
+                                >
+                                  Delete
                                 </a>
                               </td>
                             </tr>

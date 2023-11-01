@@ -1,16 +1,12 @@
 import { useState } from "react";
 import LoginNavbar from "../components/LoginNavbar";
-import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
-export default function Login({ setPage }) {
+export default function Login() {
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
   });
-
-  Login.propTypes = {
-    setPage: PropTypes.func.isRequired,
-  };
 
   function inputHandler(e) {
     const { name, value } = e.target;
@@ -21,9 +17,12 @@ export default function Login({ setPage }) {
     });
   }
 
+  const navigate = useNavigate();
+
   function submitHandler(e) {
     e.preventDefault();
-    setPage("dashboard");
+    localStorage.access_token = "abc";
+    navigate("/");
   }
 
   return (
