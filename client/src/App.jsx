@@ -1,71 +1,35 @@
-import { useEffect, useRef, useState } from "react";
-import SideNav from "./components/SideNav";
-import { Outlet } from "react-router-dom";
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
 function App() {
-  const sidenav = useRef(null);
-  const sidenavTrigger = useRef(null);
-  const sidenavCloseButton = useRef(null);
-  const burger = useRef(null);
-  const topBread = useRef(null);
-  const bottomBread = useRef(null);
-
-  useEffect(() => {
-    sidenav.current = document.querySelector("aside");
-    sidenavTrigger.current = document.querySelector("[data-sidenav-trigger]");
-    sidenavCloseButton.current = document.querySelector("[data-sidenav-close]");
-    burger.current = sidenavTrigger.current.firstElementChild;
-    topBread.current = burger.current.firstElementChild;
-    bottomBread.current = burger.current.lastElementChild;
-  }, []);
-
-  function sidenavToggleHandler() {
-    sidenavCloseButton.current.classList.toggle("hidden");
-    sidenav.current.classList.toggle("translate-x-0");
-    sidenav.current.classList.toggle("shadow-soft-xl");
-
-    topBread.current.classList.toggle("translate-x-[5px]");
-    bottomBread.current.classList.toggle("translate-x-[5px]");
-  }
-
-  const [jobs, setJobs] = useState([]);
-  async function fetchJobs() {
-    try {
-      let response = await fetch("http://localhost:3000/jobs", {
-        headers: { access_token: localStorage.access_token },
-      });
-      if (!response.ok) {
-        throw { name: "fetch_error" };
-      }
-      response = await response.json();
-      setJobs(response);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const [companies, setCompanies] = useState([]);
-  async function fetchCompanies() {
-    try {
-      let response = await fetch("http://localhost:3000/companies", {
-        headers: { access_token: localStorage.access_token },
-      });
-      if (!response.ok) {
-        throw { name: "fetch_error" };
-      }
-      response = await response.json();
-      setCompanies(response);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const [count, setCount] = useState(0)
 
   return (
     <>
-      <SideNav sidenavToggleHandler={sidenavToggleHandler} />
-      <Outlet context={{ jobs, fetchJobs, companies, fetchCompanies, sidenavToggleHandler }} />
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

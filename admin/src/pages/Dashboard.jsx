@@ -1,14 +1,19 @@
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
 import { useOutletContext } from "react-router";
+import { fetchJobs, fetchCompanies } from "../stores/actions/actionCreator";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Dashboard() {
-  const { jobs, fetchJobs, companies, fetchCompanies, sidenavToggleHandler } = useOutletContext();
+  const { sidenavToggleHandler } = useOutletContext();
+  const jobs = useSelector((state) => state.jobReducer.jobs);
+  const companies = useSelector((state) => state.companyReducer.companies);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchJobs();
-    fetchCompanies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(fetchJobs());
+    dispatch(fetchCompanies());
   }, []);
 
   return (

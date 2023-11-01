@@ -1,14 +1,16 @@
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { fetchCompanies, postJobs } from "../stores/actions/actionCreator";
+import { useSnackbar } from "notistack";
 
-export default function CreateCompanies() {
-  const { sidenavToggleHandler, companies, fetchCompanies } = useOutletContext();
-
-  useEffect(() => {
-    fetchCompanies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+export default function CreateJobs() {
+  const { sidenavToggleHandler } = useOutletContext();
+  const companies = useSelector((state) => state.companyReducer.companies);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [jobForm, setJobForm] = useState({
     title: "",
@@ -18,7 +20,19 @@ export default function CreateCompanies() {
     jobType: "",
   });
 
-  function inputHandler(e) {
+  const [skillForm, setSkillForm] = useState([
+    {
+      jobId: 0,
+      name: "",
+      level: "",
+    },
+  ]);
+
+  useEffect(() => {
+    dispatch(fetchCompanies());
+  }, []);
+
+  function changeHandler(e) {
     const { name, value } = e.target;
 
     setJobForm({
@@ -27,11 +41,9 @@ export default function CreateCompanies() {
     });
   }
 
-  const [skillCount, setSkillCount] = useState(1);
-
   function renderSkillInput() {
     let result = [];
-    for (let i = 0; i < skillCount; i++) {
+    for (let i = 0; i < skillForm.length; i++) {
       result.push(
         <div className="mb-4 flex" style={{ gap: "0.5rem" }} key={i}>
           <input
@@ -41,16 +53,16 @@ export default function CreateCompanies() {
             aria-label="Skill Name"
             aria-describedby="skill-name-addon"
             name="name"
-            value={skills[i].name}
-            onChange={(e) => skillNameInputHandler(e, i)}
+            value={skillForm[i].name}
+            onChange={(e) => skillChangeHandler(e, i)}
           />
           <select
             className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
             aria-label="Level"
             aria-describedby="level-addon"
             name="level"
-            value={skills[i].level}
-            onChange={(e) => skillLevelChangeHandler(e, i)}
+            value={skillForm[i].level}
+            onChange={(e) => skillChangeHandler(e, i)}
           >
             <option value="" disabled>
               -- Select Skill Level --
@@ -65,11 +77,10 @@ export default function CreateCompanies() {
     return result;
   }
 
-  function addSkillInput() {
-    if (skillCount < 5) {
-      setSkillCount(skillCount + 1);
-      setSkills([
-        ...skills,
+  function skillInputIncrement() {
+    if (skillForm.length < 5) {
+      setSkillForm([
+        ...skillForm,
         {
           jobId: 0,
           name: "",
@@ -79,55 +90,20 @@ export default function CreateCompanies() {
     }
   }
 
-  const [skills, setSkills] = useState([
-    {
-      jobId: 0,
-      name: "",
-      level: "",
-    },
-  ]);
+  function skillChangeHandler(e, index) {
+    const { value, name } = e.target;
+    const newSkillForm = [...skillForm];
+    newSkillForm[index][name] = value;
 
-  function skillNameInputHandler(e, index) {
-    const { value } = e.target;
-    const skillArray = [...skills];
-    skillArray[index].name = value;
-
-    setSkills(skillArray);
+    setSkillForm(newSkillForm);
   }
 
-  function skillLevelChangeHandler(e, index) {
-    const { value } = e.target;
-    const skillArray = [...skills];
-    skillArray[index].level = value;
-
-    setSkills(skillArray);
-  }
-
-  async function postJobs(data) {
-    try {
-      console.log(data);
-      const response = await fetch("http://localhost:3000/jobs", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          access_token: localStorage.access_token,
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw { name: "fetch_error" };
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const navigate = useNavigate();
   function submitHandler(e) {
     e.preventDefault();
     const obj = jobForm;
-    obj.skills = skills;
-    postJobs(obj);
+    obj.skills = skillForm;
+    dispatch(postJobs(obj));
+    enqueueSnackbar("New job added successfully!", { variant: "success" });
     navigate("/jobs");
   }
 
@@ -151,7 +127,7 @@ export default function CreateCompanies() {
                       aria-describedby="title-addon"
                       name="title"
                       value={jobForm.title}
-                      onChange={inputHandler}
+                      onChange={changeHandler}
                       autoComplete="title"
                     />
                   </div>
@@ -164,7 +140,7 @@ export default function CreateCompanies() {
                       aria-describedby="companyId-addon"
                       name="companyId"
                       value={jobForm.companyId}
-                      onChange={inputHandler}
+                      onChange={changeHandler}
                     >
                       <option value="0" disabled>
                         -- Select Company --
@@ -185,7 +161,7 @@ export default function CreateCompanies() {
                       aria-describedby="job-type-addon"
                       name="jobType"
                       value={jobForm.jobType}
-                      onChange={inputHandler}
+                      onChange={changeHandler}
                       autoComplete="job-type"
                     >
                       <option value="" disabled>
@@ -206,7 +182,7 @@ export default function CreateCompanies() {
                       aria-describedby="description-addon"
                       name="description"
                       value={jobForm.description}
-                      onChange={inputHandler}
+                      onChange={changeHandler}
                       autoComplete="current-description"
                     ></textarea>
                   </div>
@@ -217,7 +193,7 @@ export default function CreateCompanies() {
                     <label className="mb-2 ml-1 font-bold text-xs text-slate-700">Skills</label>
                     <button
                       type="button"
-                      onClick={addSkillInput}
+                      onClick={skillInputIncrement}
                       to="/jobs/add"
                       className="px-2.5 py-1 mb-2 font-bold text-white align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro ease-soft-in tracking-tight-soft bg-gradient-to-tl from-green-600 to-lime-400 hover:shadow-soft-xs active:opacity-85"
                     >

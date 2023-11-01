@@ -1,8 +1,11 @@
 import { useState } from "react";
 import LoginNavbar from "../components/LoginNavbar";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 export default function Login() {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
@@ -22,6 +25,7 @@ export default function Login() {
   function submitHandler(e) {
     e.preventDefault();
     localStorage.access_token = "abc";
+    enqueueSnackbar("Signed in successfully!", { variant: "success" });
     navigate("/");
   }
 
