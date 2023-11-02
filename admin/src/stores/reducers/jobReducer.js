@@ -10,14 +10,18 @@ const initialState = {
     jobType: "",
     Skills: [],
   },
+  error: null,
+  isLoading: true,
 };
 
 const jobReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_JOBS_SUCCESS:
-      return { ...state, jobs: action.payload };
+      return { ...state, jobs: action.payload, isLoading: false };
     case FETCH_JOB_BY_ID_SUCCESS:
-      return { ...state, job: action.payload };
+      return { ...state, job: action.payload, isLoading: false };
+    case "error":
+      return { ...state, error: action.error };
     default:
       return state;
   }

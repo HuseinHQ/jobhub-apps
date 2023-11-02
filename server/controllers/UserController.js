@@ -37,7 +37,7 @@ class UserController {
     try {
       const { username, email, password, phoneNumber, address } = req.body;
 
-      await User.create({ username, email, password, phoneNumber, address });
+      await User.create({ username, email, password, role: "admin", phoneNumber, address });
 
       res.status(201).json({ message: "New admin registered successfully!" });
     } catch (error) {

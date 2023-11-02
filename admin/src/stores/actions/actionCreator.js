@@ -30,18 +30,19 @@ export const fetchJobs = () => async (dispatch) => {
       headers: { access_token: localStorage.access_token },
     });
     if (!response.ok) {
-      throw { name: "fetch_error" };
+      const { message } = await response.json();
+      throw { message };
     }
     response = await response.json();
     dispatch(fecthJobSuccess(response));
   } catch (error) {
-    console.log(error);
+    dispatch({ type: "error", error });
   }
 };
 
 export const fetchJobById = (id) => async (dispatch) => {
   try {
-    let response = await fetch("http://localhost:3000/jobs/" + id, {
+    let response = await fetch(baseURL + "/jobs/" + id, {
       headers: { access_token: localStorage.access_token },
     });
     if (!response.ok) {
@@ -56,7 +57,7 @@ export const fetchJobById = (id) => async (dispatch) => {
 
 export const deleteJobs = (id) => async (dispatch) => {
   try {
-    const response = await fetch("http://localhost:3000/jobs/" + id, {
+    const response = await fetch(baseURL + "/jobs/" + id, {
       method: "delete",
       headers: {
         access_token: localStorage.access_token,
@@ -74,7 +75,7 @@ export const deleteJobs = (id) => async (dispatch) => {
 
 export const postJobs = (data) => async (dispatch) => {
   try {
-    const response = await fetch("http://localhost:3000/jobs", {
+    const response = await fetch(baseURL + "/jobs", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +95,7 @@ export const postJobs = (data) => async (dispatch) => {
 export const putJobs = (data, id) => async (dispatch) => {
   try {
     console.log(data);
-    const response = await fetch("http://localhost:3000/jobs/" + id, {
+    const response = await fetch(baseURL + "/jobs/" + id, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +115,7 @@ export const putJobs = (data, id) => async (dispatch) => {
 // COMPANY ACTIONS
 export const fetchCompanies = () => async (dispatch) => {
   try {
-    let response = await fetch("http://localhost:3000/companies", {
+    let response = await fetch(baseURL + "/companies", {
       headers: { access_token: localStorage.access_token },
     });
     if (!response.ok) {
@@ -129,7 +130,7 @@ export const fetchCompanies = () => async (dispatch) => {
 
 export const fetchCompanyById = (id) => async (dispatch) => {
   try {
-    let response = await fetch("http://localhost:3000/companies/" + id, {
+    let response = await fetch(baseURL + "/companies/" + id, {
       headers: { access_token: localStorage.access_token },
     });
     if (!response.ok) {
@@ -144,7 +145,7 @@ export const fetchCompanyById = (id) => async (dispatch) => {
 
 export const deleteCompanies = (id) => async (dispatch) => {
   try {
-    const response = await fetch("http://localhost:3000/companies/" + id, {
+    const response = await fetch(baseURL + "/companies/" + id, {
       method: "delete",
       headers: {
         access_token: localStorage.access_token,
@@ -162,7 +163,7 @@ export const deleteCompanies = (id) => async (dispatch) => {
 
 export const postCompanies = (data) => async (dispatch) => {
   try {
-    const response = await fetch("http://localhost:3000/companies", {
+    const response = await fetch(baseURL + "/companies", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -182,7 +183,7 @@ export const postCompanies = (data) => async (dispatch) => {
 export const putCompanies = (data, id) => async (dispatch) => {
   try {
     console.log(data);
-    const response = await fetch("http://localhost:3000/companies/" + id, {
+    const response = await fetch(baseURL + "/companies/" + id, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -196,5 +197,47 @@ export const putCompanies = (data, id) => async (dispatch) => {
     dispatch(putCompaniesSuccess());
   } catch (error) {
     console.log(error);
+  }
+};
+
+// USER ACTIONS
+export const login = async (data) => {
+  try {
+    let response = await fetch(baseURL + "/login", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const { message } = await response.json();
+      throw { message };
+    }
+
+    const { access_token } = await response.json();
+    localStorage.access_token = access_token;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const register = async (data) => {
+  try {
+    const response = await fetch(baseURL + "/register", {
+      method: "post",
+      headers: {
+        access_token: localStorage.access_token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      const { message } = await response.json();
+      throw { message };
+    }
+  } catch (error) {
+    return error;
   }
 };

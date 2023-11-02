@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import { useState } from "react";
 import { useOutletContext } from "react-router";
 import { useSnackbar } from "notistack";
+import { register } from "../stores/actions/actionCreator";
 
 export default function RegisterPage() {
   const { sidenavToggleHandler } = useOutletContext();
@@ -11,7 +12,6 @@ export default function RegisterPage() {
     username: "",
     email: "",
     password: "",
-    role: "admin",
     phoneNumber: "",
     address: "",
   });
@@ -25,36 +25,22 @@ export default function RegisterPage() {
     });
   }
 
-  async function postUser() {
-    try {
-      const response = await fetch("http://localhost:3000/users", {
-        method: "post",
-        headers: {
-          access_token: localStorage.access_token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(registerForm),
-      });
-      if (!response.ok) {
-        throw { name: "fetch error" };
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  function submitHandler(e) {
+  async function submitHandler(e) {
     e.preventDefault();
-    postUser();
-    setRegisterForm({
-      username: "",
-      email: "",
-      password: "",
-      role: "admin",
-      phoneNumber: "",
-      address: "",
-    });
-    enqueueSnackbar("New admin registered successfully!", { variant: "success" });
+    const error = await register(registerForm);
+    if (error) {
+      enqueueSnackbar(error.message, { variant: "error" });
+    } else {
+      enqueueSnackbar("New admin registered successfully!", { variant: "success" });
+      setRegisterForm({
+        username: "",
+        email: "",
+        password: "",
+        role: "admin",
+        phoneNumber: "",
+        address: "",
+      });
+    }
   }
 
   return (

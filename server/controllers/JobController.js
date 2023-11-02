@@ -3,7 +3,7 @@ const { Job, Skill, sequelize } = require("../models/");
 class JobController {
   static async getAllJobs(req, res, next) {
     try {
-      const data = await Job.findAll();
+      const data = await Job.findAll({ order: [["updatedAt", "DESC"]] });
       res.status(200).json(data);
     } catch (error) {
       next(error);
@@ -25,18 +25,17 @@ class JobController {
   static async postJobs(req, res, next) {
     try {
       await sequelize.transaction(async (t) => {
-        const { title, description, companyId, jobType, skills } = req.body;
+        const { title, description, companyId, jobType, Skills } = req.body;
         const authorId = req.user.id;
 
         const newJob = await Job.create({ title, description, companyId, authorId, jobType }, { transaction: t });
 
-        const skillArray = skills.map((skill) => {
-          skill = JSON.parse(skill);
+        const mappedSkills = Skills.map((skill) => {
           skill.jobId = newJob.id;
           return skill;
         });
 
-        await Skill.bulkCreate(skillArray, { transaction: t });
+        await Skill.bulkCreate(mappedSkills, { transaction: t });
 
         res.status(201).json({ message: "New job created successfully!" });
       });
@@ -48,7 +47,7 @@ class JobController {
   static async putJobs(req, res, next) {
     try {
       await sequelize.transaction(async (t) => {
-        const { title, description, companyId, jobType, Skills: skills } = req.body;
+        const { title, description, companyId, jobType, Skills } = req.body;
         const { jobId } = req.params;
 
         const findJob = await Job.findByPk(jobId, { transaction: t });
@@ -64,7 +63,7 @@ class JobController {
           }
         );
 
-        const mappedSkills = skills.map((skill) => {
+        const mappedSkills = Skills.map((skill) => {
           skill.jobId = jobId;
           return skill;
         });
