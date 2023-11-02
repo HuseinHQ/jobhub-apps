@@ -1,5 +1,4 @@
-const { Job, Skill } = require("../models/");
-const sequelize = require("sequelize");
+const { Job, Skill, sequelize } = require("../models/");
 
 class JobController {
   static async getAllJobs(req, res, next) {
@@ -42,7 +41,6 @@ class JobController {
         res.status(201).json({ message: "New job created successfully!" });
       });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
