@@ -47,23 +47,38 @@ class JobController {
 
   static async putJobs(req, res, next) {
     try {
-      const { title, description, companyId, jobType } = req.body;
-      const { jobId } = req.params;
+      await sequelize.transaction(async (t) => {
+        const { title, description, companyId, jobType, skills } = req.body;
+        const { jobId } = req.params;
 
-      const findJob = await Job.findByPk(jobId);
-      if (!findJob) {
-        throw { name: "job_not_found" };
-      }
-
-      await Job.update(
-        { title, description, companyId, jobType },
-        {
-          where: { id: jobId },
+        const findJob = await Job.findByPk(jobId, { transaction: t });
+        if (!findJob) {
+          throw { name: "job_not_found" };
         }
-      );
 
-      res.status(200).json({ message: `Job with id ${jobId} updated successfully!` });
+        await Job.update(
+          { title, description, companyId, jobType },
+          {
+            where: { id: jobId },
+            transaction: t,
+          }
+        );
+
+        const skillArray = skills.map((skill) => {
+          skill = JSON.parse(skill);
+          skill.jobId = findJob.id;
+          return skill;
+        });
+
+        await Skill.bulkCreate(skillArray, {
+          transaction: t,
+          updateOnDuplicate: ["name", "level"],
+        });
+
+        res.status(200).json({ message: `Job with id ${jobId} updated successfully!` });
+      });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
