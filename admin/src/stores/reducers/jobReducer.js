@@ -8,7 +8,7 @@ const initialState = {
     companyId: 0,
     authorId: 0,
     jobType: "",
-    skills: [],
+    Skills: [],
   },
 };
 

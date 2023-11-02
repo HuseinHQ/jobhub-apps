@@ -19,17 +19,22 @@ export default function UpdateJobs() {
     title: "",
     description: "",
     companyId: 0,
-    authorId: 1,
     jobType: "",
+    Skills: [
+      {
+        id: 0,
+        jobId: 0,
+        name: "",
+        level: "",
+      },
+      {
+        id: 0,
+        jobId: 0,
+        name: "",
+        level: "",
+      },
+    ],
   });
-
-  const [skills, setSkills] = useState([
-    {
-      jobId: 0,
-      name: "",
-      level: "",
-    },
-  ]);
 
   useEffect(() => {
     dispatch(fetchJobById(id));
@@ -38,7 +43,6 @@ export default function UpdateJobs() {
 
   useEffect(() => {
     setJobForm(job);
-    setSkills(job.skills);
   }, [job]);
 
   function changeHandler(e) {
@@ -51,7 +55,7 @@ export default function UpdateJobs() {
 
   function renderSkillInput() {
     let result = [];
-    for (let i = 0; i < skills.length; i++) {
+    for (let i = 0; i < jobForm.Skills.length; i++) {
       result.push(
         <div className="mb-4 flex" style={{ gap: "0.5rem" }} key={i}>
           <input
@@ -61,7 +65,7 @@ export default function UpdateJobs() {
             aria-label="Skill Name"
             aria-describedby="skill-name-addon"
             name="name"
-            value={skills[i].name}
+            value={jobForm.Skills[i].name}
             onChange={(e) => skillChangeHandler(e, i)}
           />
           <select
@@ -69,7 +73,7 @@ export default function UpdateJobs() {
             aria-label="Level"
             aria-describedby="level-addon"
             name="level"
-            value={skills[i].level}
+            value={jobForm.Skills[i].level}
             onChange={(e) => skillChangeHandler(e, i)}
           >
             <option value="" disabled>
@@ -86,31 +90,25 @@ export default function UpdateJobs() {
   }
 
   function skillInputIncrement() {
-    if (skills.length < 5) {
-      setSkills([
-        ...skills,
-        {
-          jobId: 0,
-          name: "",
-          level: "",
-        },
-      ]);
+    if (jobForm.Skills.length < 5) {
+      setJobForm({
+        ...jobForm,
+        Skills: [...jobForm.Skills, { name: "", level: "" }],
+      });
     }
   }
 
   function skillChangeHandler(e, index) {
     const { value, name } = e.target;
-    const skillArray = [...skills];
-    skillArray[index][name] = value;
+    const updatedSkills = [...jobForm.Skills];
+    updatedSkills[index] = { ...updatedSkills[index], [name]: value };
 
-    setSkills(skillArray);
+    setJobForm({ ...jobForm, Skills: updatedSkills });
   }
 
   function submitHandler(e) {
     e.preventDefault();
-    const obj = jobForm;
-    obj.skills = skills;
-    dispatch(putJobs(obj, id));
+    dispatch(putJobs(jobForm, id));
     enqueueSnackbar(`Job with id ${id} updated successfully!`, { variant: "success" });
     navigate("/jobs");
   }

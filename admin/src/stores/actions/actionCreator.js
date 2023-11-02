@@ -9,6 +9,8 @@ import {
   PUT_COMPANIES_SUCCESS,
 } from "./actionType";
 
+const baseURL = "http://localhost:3000";
+
 // JOBS SUCCESS ACTION
 const fecthJobSuccess = (payload) => ({ type: FETCH_JOBS_SUCCESS, payload });
 const fetchJobByIdSuccess = (payload) => ({ type: FETCH_JOB_BY_ID_SUCCESS, payload });
@@ -24,7 +26,7 @@ const putCompaniesSuccess = () => ({ type: PUT_COMPANIES_SUCCESS });
 // JOB ACTIONS
 export const fetchJobs = () => async (dispatch) => {
   try {
-    let response = await fetch("http://localhost:3000/jobs", {
+    let response = await fetch(baseURL + "/jobs", {
       headers: { access_token: localStorage.access_token },
     });
     if (!response.ok) {
