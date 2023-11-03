@@ -22,6 +22,8 @@ const jobReducer = (state = initialState, action) => {
       return { ...state, job: action.payload, isLoading: false };
     case "error":
       return { ...state, error: action.error };
+    case "loading/true":
+      return { ...state, isLoading: true };
     default:
       return state;
   }

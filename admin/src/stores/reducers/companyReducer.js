@@ -9,14 +9,17 @@ const initialState = {
     email: "",
     description: "",
   },
+  isLoading: true,
 };
 
 const companyReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COMPANIES_SUCCESS:
-      return { ...state, companies: action.payload };
+      return { ...state, companies: action.payload, isLoading: false };
     case FETCH_COMPANY_BY_ID_SUCCESS:
-      return { ...state, company: action.payload };
+      return { ...state, company: action.payload, isLoading: false };
+    case "loading/true":
+      return { ...state, isLoading: true };
     default:
       return state;
   }

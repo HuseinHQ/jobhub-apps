@@ -17,6 +17,9 @@ export default function Jobs() {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
+    if (!isLoading) {
+      dispatch({ type: "loading/true" });
+    }
     dispatch(fetchJobs());
   }, []);
 

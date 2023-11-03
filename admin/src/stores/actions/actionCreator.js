@@ -46,12 +46,13 @@ export const fetchJobById = (id) => async (dispatch) => {
       headers: { access_token: localStorage.access_token },
     });
     if (!response.ok) {
-      throw { name: "fetch error" };
+      const { message } = await response.json();
+      throw { message };
     }
     response = await response.json();
     dispatch(fetchJobByIdSuccess(response));
   } catch (error) {
-    console.log(error);
+    dispatch({ type: "error", error });
   }
 };
 

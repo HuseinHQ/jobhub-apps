@@ -10,6 +10,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Buat ngetes loading
+// app.use((req, res, next) => {
+//   setTimeout(next, 2000);
+// });
+
 app.use("/", mainRoutes);
 app.use(errorHandler);
 
