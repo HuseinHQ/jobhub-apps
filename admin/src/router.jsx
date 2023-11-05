@@ -19,9 +19,18 @@ const authProtect = () => {
   }
 };
 
+const cannotGoToLoginIfAlreadyLoggedIn = () => {
+  if (localStorage.access_token) {
+    return redirect("/");
+  } else {
+    return false;
+  }
+};
+
 const router = createBrowserRouter([
   {
     path: "/login",
+    loader: cannotGoToLoginIfAlreadyLoggedIn,
     element: (
       <>
         <Login />

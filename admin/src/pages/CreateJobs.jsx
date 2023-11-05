@@ -16,17 +16,18 @@ export default function CreateJobs() {
     title: "",
     description: "",
     companyId: 0,
-    authorId: 1,
     jobType: "",
+    Skills: [
+      {
+        name: "",
+        level: "",
+      },
+      {
+        name: "",
+        level: "",
+      },
+    ],
   });
-
-  const [skillForm, setSkillForm] = useState([
-    {
-      jobId: 0,
-      name: "",
-      level: "",
-    },
-  ]);
 
   useEffect(() => {
     dispatch(fetchCompanies());
@@ -43,7 +44,7 @@ export default function CreateJobs() {
 
   function renderSkillInput() {
     let result = [];
-    for (let i = 0; i < skillForm.length; i++) {
+    for (let i = 0; i < jobForm.Skills.length; i++) {
       result.push(
         <div className="mb-4 flex" style={{ gap: "0.5rem" }} key={i}>
           <input
@@ -53,7 +54,7 @@ export default function CreateJobs() {
             aria-label="Skill Name"
             aria-describedby="skill-name-addon"
             name="name"
-            value={skillForm[i].name}
+            value={jobForm.Skills[i].name}
             onChange={(e) => skillChangeHandler(e, i)}
           />
           <select
@@ -61,7 +62,7 @@ export default function CreateJobs() {
             aria-label="Level"
             aria-describedby="level-addon"
             name="level"
-            value={skillForm[i].level}
+            value={jobForm.Skills[i].level}
             onChange={(e) => skillChangeHandler(e, i)}
           >
             <option value="" disabled>
@@ -78,33 +79,31 @@ export default function CreateJobs() {
   }
 
   function skillInputIncrement() {
-    if (skillForm.length < 5) {
-      setSkillForm([
-        ...skillForm,
-        {
-          jobId: 0,
-          name: "",
-          level: "",
-        },
-      ]);
+    if (jobForm.Skills.length < 5) {
+      setJobForm({
+        ...jobForm,
+        Skills: [...jobForm.Skills, { name: "", level: "" }],
+      });
     }
   }
 
   function skillChangeHandler(e, index) {
     const { value, name } = e.target;
-    const newSkillForm = [...skillForm];
-    newSkillForm[index][name] = value;
+    const updatedSkills = [...jobForm.Skills];
+    updatedSkills[index] = { ...updatedSkills[index], [name]: value };
 
-    setSkillForm(newSkillForm);
+    setJobForm({ ...jobForm, Skills: updatedSkills });
   }
 
-  function submitHandler(e) {
+  async function submitHandler(e) {
     e.preventDefault();
-    const obj = jobForm;
-    obj.skills = skillForm;
-    dispatch(postJobs(obj));
-    enqueueSnackbar("New job added successfully!", { variant: "success" });
-    navigate("/jobs");
+    const error = await postJobs(jobForm);
+    if (!error) {
+      enqueueSnackbar("New job added successfully!", { variant: "success" });
+      navigate("/jobs");
+    } else {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   }
 
   return (

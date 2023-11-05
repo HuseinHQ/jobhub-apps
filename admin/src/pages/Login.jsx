@@ -2,6 +2,7 @@ import { useState } from "react";
 import LoginNavbar from "../components/LoginNavbar";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { login } from "../stores/actions/actionCreator";
 
 export default function Login() {
   const { enqueueSnackbar } = useSnackbar();
@@ -22,11 +23,15 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  function submitHandler(e) {
+  async function submitHandler(e) {
     e.preventDefault();
-    localStorage.access_token = "abc";
-    enqueueSnackbar("Signed in successfully!", { variant: "success" });
-    navigate("/");
+    const error = await login(loginForm);
+    if (error) {
+      enqueueSnackbar(error.message, { variant: "error" });
+    } else {
+      enqueueSnackbar("Signed in successfully!", { variant: "success" });
+      navigate("/");
+    }
   }
 
   return (

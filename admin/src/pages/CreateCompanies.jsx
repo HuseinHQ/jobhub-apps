@@ -1,13 +1,11 @@
 import Navbar from "../components/Navbar";
 import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { postCompanies } from "../stores/actions/actionCreator";
 import { useSnackbar } from "notistack";
 
 export default function CreateCompanies() {
   const { sidenavToggleHandler } = useOutletContext();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -28,11 +26,15 @@ export default function CreateCompanies() {
     });
   }
 
-  function submitHandler(e) {
+  async function submitHandler(e) {
     e.preventDefault();
-    dispatch(postCompanies(companyForm));
-    enqueueSnackbar("New company added successfully!", { variant: "success" });
-    navigate("/companies");
+    const error = await postCompanies(companyForm);
+    if (!error) {
+      enqueueSnackbar("New company added successfully!", { variant: "success" });
+      navigate("/companies");
+    } else {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   }
 
   return (
@@ -45,7 +47,7 @@ export default function CreateCompanies() {
             <form role="form" onSubmit={submitHandler} className="w-full">
               <div className="flex flex-wrap lg:flex-nowrap" style={{ gap: "1rem" }}>
                 <div className="w-full" style={{ paddingTop: "0.6rem" }}>
-                  <label className="mb-2 ml-1 font-bold text-xs text-slate-700">Title</label>
+                  <label className="mb-2 ml-1 font-bold text-xs text-slate-700">Name</label>
                   <div className="mb-4">
                     <input
                       type="text"

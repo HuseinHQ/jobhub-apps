@@ -3,15 +3,20 @@ import { useEffect } from "react";
 import { useOutletContext } from "react-router";
 import { fetchJobs, fetchCompanies } from "../stores/actions/actionCreator";
 import { useSelector, useDispatch } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Dashboard() {
   const { sidenavToggleHandler } = useOutletContext();
   const jobs = useSelector((state) => state.jobReducer.jobs);
   const companies = useSelector((state) => state.companyReducer.companies);
+  const isLoading = useSelector((state) => state.jobReducer.isLoading);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!isLoading) {
+      dispatch({ type: "loading/true" });
+    }
     dispatch(fetchJobs());
     dispatch(fetchCompanies());
   }, []);
@@ -31,8 +36,7 @@ export default function Dashboard() {
                       <div>
                         <p className="mb-0 font-sans font-semibold leading-normal text-sm">Total Jobs</p>
                         <h5 className="mb-0 font-bold">
-                          {jobs.length}
-                          {/* <span className="leading-normal text-sm font-weight-bolder text-lime-500">+55%</span> */}
+                          {isLoading ? <CircularProgress sx={{ display: "flex", scale: "0.5", padding: "0", margin: "0" }} /> : jobs.length}
                         </h5>
                       </div>
                     </div>
@@ -54,8 +58,7 @@ export default function Dashboard() {
                       <div>
                         <p className="mb-0 font-sans font-semibold leading-normal text-sm">Total Company</p>
                         <h5 className="mb-0 font-bold">
-                          {companies.length}
-                          {/* <span className="leading-normal text-sm font-weight-bolder text-lime-500">+3%</span> */}
+                          {isLoading ? <CircularProgress sx={{ display: "flex", scale: "0.5", padding: "0", margin: "0" }} /> : companies.length}
                         </h5>
                       </div>
                     </div>
