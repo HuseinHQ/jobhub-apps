@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function Navbar() {
   const { pathname } = useLocation();
@@ -55,18 +56,18 @@ export default function Navbar() {
           </svg>
         </Link>
         <ul className="flex gap-6">
-          <Link className={pathname === "/jobs" ? selectedLiClass : notSelectedLiClass} to="/jobs">
+          <Link className={pathname === "/jobs" ? selectedLiClass : notSelectedLiClass + " hover:cursor-pointer"} to="/jobs">
             Cari lowongan
           </Link>
-          <Link className={pathname.includes("/jobs/") ? selectedLiClass : notSelectedLiClass} to="/">
+          <Tooltip title="Sorry, this page isn't available yet" className={notSelectedLiClass + " hover:cursor-pointer"}>
             MyJobStreet
-          </Link>
-          <Link className="text-slate-600 hover:border-b-2 transition-all ease-in-out duration-75" to="/">
+          </Tooltip>
+          <Tooltip title="Sorry, this page isn't available yet" className={notSelectedLiClass + " hover:cursor-pointer"}>
             Profil perusahaan
-          </Link>
-          <Link className="text-slate-600 hover:border-b-2 transition-all ease-in-out duration-75" to="/">
+          </Tooltip>
+          <Tooltip title="Sorry, this page isn't available yet" className={notSelectedLiClass + " hover:cursor-pointer"}>
             Tips karier
-          </Link>
+          </Tooltip>
         </ul>
       </div>
     </nav>

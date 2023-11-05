@@ -13,26 +13,21 @@ export default function JobPage() {
     dispatch(fetchJobs());
   }, []);
 
-  useEffect(() => {
-    console.log(jobs);
-  }, [jobs]);
-
   return (
     <>
       <FilterBar2 />
-      <div className="flex">
-        <div className="flex items-end flex-col w-[38vw] mb-5 border-r-2 gap-3">
-          <p className="self-start ps-[20%] mt-3">
-            <span className="font-bold">{jobs.length}</span> lowongan
-          </p>
-          {jobs.map((job) => (
-            <JobCard key={job.id} data={job} />
-          ))}
-
-          {/* <JobCard />
-          <JobCard /> */}
+      <div className="flex justify-center bg-[#f7f8fb]">
+        <div className="flex max-h-[633px] w-[90vw]">
+          <div className="flex flex-col w-[38%] bg-[#f7f8fb] py-5 border-r-2 gap-3 overflow-auto">
+            <p className="text-center">
+              <span className="font-bold">1-{jobs.length}</span> dari {jobs.length} lowongan
+            </p>
+            {jobs.map((job) => (
+              <JobCard key={job.id} data={job} />
+            ))}
+          </div>
+          <Outlet context={{ jobCount: jobs.length }} />
         </div>
-        <Outlet />
       </div>
     </>
   );

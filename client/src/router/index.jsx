@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import LandingPage from "../pages/LandingPage";
 import JobPage from "../pages/JobPage";
+import DetailPage from "../pages/DetailPage";
+import NoDetailPage from "../pages/NoDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -21,8 +23,12 @@ const router = createBrowserRouter([
         ),
         children: [
           {
+            path: "",
+            element: <NoDetailPage />,
+          },
+          {
             path: ":id",
-            element: <h1>Ini Detail</h1>,
+            element: <DetailPage />,
           },
         ],
       },
