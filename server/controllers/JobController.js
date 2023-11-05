@@ -14,7 +14,7 @@ class JobController {
     try {
       const { jobId } = req.params;
       const data = await Job.findByPk(jobId, {
-        include: "Skills",
+        include: ["Skills", "User", "Company"],
       });
       res.status(200).json(data);
     } catch (error) {
