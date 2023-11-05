@@ -20,6 +20,8 @@ const companyReducer = (state = initialState, action) => {
       return { ...state, company: action.payload, isLoading: false };
     case "loading/true":
       return { ...state, isLoading: true };
+    case "error/erase":
+      return { ...state, error: null };
     default:
       return state;
   }

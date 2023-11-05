@@ -24,6 +24,8 @@ const jobReducer = (state = initialState, action) => {
       return { ...state, error: action.error };
     case "loading/true":
       return { ...state, isLoading: true };
+    case "error/erase":
+      return { ...state, error: null };
     default:
       return state;
   }

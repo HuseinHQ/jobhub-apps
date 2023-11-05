@@ -1,27 +1,14 @@
-import {
-  FETCH_JOBS_SUCCESS,
-  FETCH_JOB_BY_ID_SUCCESS,
-  FETCH_COMPANIES_SUCCESS,
-  FETCH_COMPANY_BY_ID_SUCCESS,
-  POST_COMPANIES_SUCCESS,
-  POST_JOBS_SUCCESS,
-  PUT_JOBS_SUCCESS,
-  PUT_COMPANIES_SUCCESS,
-} from "./actionType";
+import { FETCH_JOBS_SUCCESS, FETCH_JOB_BY_ID_SUCCESS, FETCH_COMPANIES_SUCCESS, FETCH_COMPANY_BY_ID_SUCCESS } from "./actionType";
 
 const baseURL = "http://localhost:3000";
 
 // JOBS SUCCESS ACTION
 const fecthJobSuccess = (payload) => ({ type: FETCH_JOBS_SUCCESS, payload });
 const fetchJobByIdSuccess = (payload) => ({ type: FETCH_JOB_BY_ID_SUCCESS, payload });
-const postJobsSuccess = () => ({ type: POST_JOBS_SUCCESS });
-const putJobSuccess = () => ({ type: PUT_JOBS_SUCCESS });
 
 // COMPANIES SUCCESS ACTION
 const fetchCompanySuccess = (payload) => ({ type: FETCH_COMPANIES_SUCCESS, payload });
 const fetchCompanyByIdSuccess = (payload) => ({ type: FETCH_COMPANY_BY_ID_SUCCESS, payload });
-const postCompaniesSuccess = () => ({ type: POST_COMPANIES_SUCCESS });
-const putCompaniesSuccess = () => ({ type: PUT_COMPANIES_SUCCESS });
 
 // JOB ACTIONS
 export const fetchJobs = () => async (dispatch) => {
@@ -56,7 +43,7 @@ export const fetchJobById = (id) => async (dispatch) => {
   }
 };
 
-export const deleteJobs = (id) => async (dispatch) => {
+export const deleteJobs = async (id) => {
   try {
     const response = await fetch(baseURL + "/jobs/" + id, {
       method: "delete",
@@ -66,15 +53,16 @@ export const deleteJobs = (id) => async (dispatch) => {
       },
     });
     if (!response.ok) {
-      throw { name: "fetch_error" };
+      const { message } = await response.json();
+      throw { message };
     }
-    dispatch(fetchJobs());
+    return false;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
-export const postJobs = (data) => async (dispatch) => {
+export const postJobs = async (data) => {
   try {
     const response = await fetch(baseURL + "/jobs", {
       method: "post",
@@ -85,15 +73,16 @@ export const postJobs = (data) => async (dispatch) => {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw { name: "fetch_error" };
+      const { message } = await response.json();
+      throw { message };
     }
-    dispatch(postJobsSuccess());
+    return false;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
-export const putJobs = (data, id) => async (dispatch) => {
+export const putJobs = async (data, id) => {
   try {
     console.log(data);
     const response = await fetch(baseURL + "/jobs/" + id, {
@@ -105,11 +94,12 @@ export const putJobs = (data, id) => async (dispatch) => {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw { name: "fetch_error" };
+      const { message } = await response.json();
+      throw { message };
     }
-    dispatch(putJobSuccess());
+    return false;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
@@ -120,12 +110,13 @@ export const fetchCompanies = () => async (dispatch) => {
       headers: { access_token: localStorage.access_token },
     });
     if (!response.ok) {
-      throw { name: "fetch_error" };
+      const { message } = await response.json();
+      throw { message };
     }
     response = await response.json();
     dispatch(fetchCompanySuccess(response));
   } catch (error) {
-    console.log(error);
+    dispatch({ type: "error", error });
   }
 };
 
@@ -135,16 +126,17 @@ export const fetchCompanyById = (id) => async (dispatch) => {
       headers: { access_token: localStorage.access_token },
     });
     if (!response.ok) {
-      throw { name: "fetch error" };
+      const { message } = await response.json();
+      throw { message };
     }
     response = await response.json();
     dispatch(fetchCompanyByIdSuccess(response));
   } catch (error) {
-    console.log(error);
+    dispatch({ type: "error", error });
   }
 };
 
-export const deleteCompanies = (id) => async (dispatch) => {
+export const deleteCompanies = async (id) => {
   try {
     const response = await fetch(baseURL + "/companies/" + id, {
       method: "delete",
@@ -154,15 +146,16 @@ export const deleteCompanies = (id) => async (dispatch) => {
       },
     });
     if (!response.ok) {
-      throw { name: "fetch_error" };
+      const { message } = await response.json();
+      throw { message };
     }
-    dispatch(fetchCompanies());
+    return false;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
-export const postCompanies = (data) => async (dispatch) => {
+export const postCompanies = async (data) => {
   try {
     const response = await fetch(baseURL + "/companies", {
       method: "post",
@@ -173,15 +166,16 @@ export const postCompanies = (data) => async (dispatch) => {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw { name: "fetch_error" };
+      const { message } = await response.json();
+      throw { message };
     }
-    dispatch(postCompaniesSuccess());
+    return false;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
-export const putCompanies = (data, id) => async (dispatch) => {
+export const putCompanies = async (data, id) => {
   try {
     console.log(data);
     const response = await fetch(baseURL + "/companies/" + id, {
@@ -193,11 +187,12 @@ export const putCompanies = (data, id) => async (dispatch) => {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw { name: "fetch_error" };
+      const { message } = await response.json();
+      throw { message };
     }
-    dispatch(putCompaniesSuccess());
+    return false;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 

@@ -44,6 +44,9 @@ export default function UpdateJobs() {
     if (!isLoading) {
       dispatch({ type: "loading/true" });
     }
+    if (error) {
+      dispatch({ type: "error/erase" });
+    }
     dispatch(fetchJobById(id));
     dispatch(fetchCompanies());
   }, []);
@@ -119,11 +122,16 @@ export default function UpdateJobs() {
     setJobForm({ ...jobForm, Skills: updatedSkills });
   }
 
-  function submitHandler(e) {
+  async function submitHandler(e) {
     e.preventDefault();
-    dispatch(putJobs(jobForm, id));
-    enqueueSnackbar(`Job with id ${id} updated successfully!`, { variant: "success" });
-    navigate("/jobs");
+    const error = await putJobs(jobForm, id);
+    if (!error) {
+      enqueueSnackbar(`Job with id ${id} updated successfully!`, { variant: "success" });
+      navigate("/jobs");
+    } else {
+      console.log(error);
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   }
 
   return (

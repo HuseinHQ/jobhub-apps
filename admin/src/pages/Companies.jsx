@@ -11,6 +11,7 @@ export default function Companies() {
   const { sidenavToggleHandler } = useOutletContext();
   const companies = useSelector((state) => state.companyReducer.companies);
   const isLoading = useSelector((state) => state.companyReducer.isLoading);
+  const error = useSelector((state) => state.companyReducer.error);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -18,13 +19,27 @@ export default function Companies() {
     if (!isLoading) {
       dispatch({ type: "loading/true" });
     }
+    if (error) {
+      dispatch({ type: "error/erase" });
+    }
     dispatch(fetchCompanies());
   }, []);
 
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar(error);
+    }
+  }, [error]);
+
   async function deleteHandler(e, id) {
     e.preventDefault();
-    dispatch(deleteCompanies(id));
-    enqueueSnackbar(`Company with id ${id} deleted successfully!`, { variant: "success" });
+    const error = await deleteCompanies(id);
+    if (!error) {
+      enqueueSnackbar(`Company with id ${id} deleted successfully!`, { variant: "success" });
+      dispatch(fetchCompanies());
+    } else {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   }
 
   return (

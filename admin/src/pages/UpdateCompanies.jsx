@@ -12,6 +12,7 @@ export default function CreateCompanies() {
   const { id } = useParams();
   const company = useSelector((state) => state.companyReducer.company);
   const isLoading = useSelector((state) => state.companyReducer.isLoading);
+  const error = useSelector((state) => state.companyReducer.error);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -19,8 +20,17 @@ export default function CreateCompanies() {
     if (!isLoading) {
       dispatch({ type: "loading/true" });
     }
+    if (error) {
+      dispatch({ type: "error/erase" });
+    }
     dispatch(fetchCompanyById(id));
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+  }, [error]);
 
   useEffect(() => {
     setCompanyForm(company);
@@ -44,12 +54,17 @@ export default function CreateCompanies() {
   }
 
   const navigate = useNavigate();
-  function submitHandler(e) {
+
+  async function submitHandler(e) {
     e.preventDefault();
     const obj = companyForm;
-    dispatch(putCompanies(obj, id));
-    enqueueSnackbar(`Company with id ${id} updated successfully!`, { variant: "success" });
-    navigate("/companies");
+    const error = await putCompanies(obj, id);
+    if (!error) {
+      enqueueSnackbar(`Company with id ${id} updated successfully!`, { variant: "success" });
+      navigate("/companies");
+    } else {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   }
 
   return (
@@ -66,7 +81,7 @@ export default function CreateCompanies() {
               <form role="form" onSubmit={submitHandler} className="w-full">
                 <div className="flex flex-wrap lg:flex-nowrap" style={{ gap: "1rem" }}>
                   <div className="w-full" style={{ paddingTop: "0.6rem" }}>
-                    <label className="mb-2 ml-1 font-bold text-xs text-slate-700">Title</label>
+                    <label className="mb-2 ml-1 font-bold text-xs text-slate-700">Name</label>
                     <div className="mb-4">
                       <input
                         type="text"

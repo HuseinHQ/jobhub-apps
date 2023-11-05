@@ -1,3 +1,4 @@
+import { enqueueSnackbar } from "notistack";
 import PropType from "prop-types";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 
@@ -18,6 +19,7 @@ export default function SideNav({ sidenavToggleHandler }) {
     e.preventDefault();
 
     localStorage.removeItem("access_token");
+    enqueueSnackbar("Successfully logged out!", { variant: "info" });
     navigate("/login");
   }
 

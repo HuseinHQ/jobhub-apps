@@ -20,6 +20,9 @@ export default function Jobs() {
     if (!isLoading) {
       dispatch({ type: "loading/true" });
     }
+    if (error) {
+      dispatch({ type: "error/erase" });
+    }
     dispatch(fetchJobs());
   }, []);
 
@@ -29,10 +32,15 @@ export default function Jobs() {
     }
   }, [error]);
 
-  function deleteHandler(e, id) {
+  async function deleteHandler(e, id) {
     e.preventDefault();
-    dispatch(deleteJobs(id));
-    enqueueSnackbar(`Job with id ${id} deleted successfully!`, { variant: "success" });
+    const error = await deleteJobs(id);
+    if (!error) {
+      enqueueSnackbar(`Job with id ${id} deleted successfully!`, { variant: "success" });
+      dispatch(fetchJobs());
+    } else {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   }
 
   return (
@@ -85,7 +93,7 @@ export default function Jobs() {
                                   <div className="flex px-2 py-1">
                                     <div className="flex flex-col justify-center">
                                       <h6 className="mb-0 text-sm leading-normal">{job.title}</h6>
-                                      <p className="mb-0 text-xs leading-tight text-slate-400">Author Id: {job.authorId}</p>
+                                      <p className="mb-0 text-xs leading-tight text-slate-400">{job.User?.email}</p>
                                     </div>
                                   </div>
                                 </td>
@@ -93,7 +101,7 @@ export default function Jobs() {
                                   <p className="mb-0 text-xs leading-tight text-slate-400">{job.description}</p>
                                 </td>
                                 <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                  <p className="mb-0 text-xs font-semibold leading-tight">{job.companyId}</p>
+                                  <p className="mb-0 text-xs font-semibold leading-tight">{job.Company?.name}</p>
                                 </td>
                                 <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                   {job.jobType === "full time" ? (

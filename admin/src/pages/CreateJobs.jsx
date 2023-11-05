@@ -95,11 +95,15 @@ export default function CreateJobs() {
     setJobForm({ ...jobForm, Skills: updatedSkills });
   }
 
-  function submitHandler(e) {
+  async function submitHandler(e) {
     e.preventDefault();
-    dispatch(postJobs(jobForm));
-    enqueueSnackbar("New job added successfully!", { variant: "success" });
-    navigate("/jobs");
+    const error = await postJobs(jobForm);
+    if (!error) {
+      enqueueSnackbar("New job added successfully!", { variant: "success" });
+      navigate("/jobs");
+    } else {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   }
 
   return (
