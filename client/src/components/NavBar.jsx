@@ -59,13 +59,13 @@ export default function Navbar() {
           <Link className={pathname === "/jobs" ? selectedLiClass : notSelectedLiClass + " hover:cursor-pointer"} to="/jobs">
             Cari lowongan
           </Link>
-          <Tooltip title="Sorry, this page isn't available yet" className={notSelectedLiClass + " hover:cursor-pointer"}>
+          <Tooltip title="Halaman belum dibuat" className={notSelectedLiClass + " hover:cursor-pointer"}>
             MyJobStreet
           </Tooltip>
-          <Tooltip title="Sorry, this page isn't available yet" className={notSelectedLiClass + " hover:cursor-pointer"}>
+          <Tooltip title="Halaman belum dibuat" className={notSelectedLiClass + " hover:cursor-pointer"}>
             Profil perusahaan
           </Tooltip>
-          <Tooltip title="Sorry, this page isn't available yet" className={notSelectedLiClass + " hover:cursor-pointer"}>
+          <Tooltip title="Halaman belum dibuat" className={notSelectedLiClass + " hover:cursor-pointer"}>
             Tips karier
           </Tooltip>
         </ul>

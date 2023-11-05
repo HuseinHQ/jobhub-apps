@@ -3,7 +3,7 @@ const { Job, Skill, sequelize } = require("../models/");
 class JobController {
   static async getAllJobs(req, res, next) {
     try {
-      const data = await Job.findAll({ order: [["updatedAt", "DESC"]], include: [Skill, "Company"] });
+      const data = await Job.findAll({ order: [["updatedAt", "DESC"]], include: [Skill, "Company", "User"] });
       res.status(200).json(data);
     } catch (error) {
       next(error);

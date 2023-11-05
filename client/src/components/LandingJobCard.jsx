@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function JobCard({ data }) {
+export default function LandingJobCard({ data }) {
   const navigate = useNavigate();
   function gotoDetail(id) {
     navigate("/jobs/" + id);
@@ -25,7 +25,7 @@ export default function JobCard({ data }) {
   const unSelectedCardStyle = "hover:cursor-pointer hover:shadow-md transition-all border-l-4 border-blue-700 rounded bg-white p-6 me-2";
 
   return (
-    <div onClick={() => gotoDetail(data.id)} className={id && id == data.id ? selectedCardStyle : unSelectedCardStyle + " max-w-[22rem]"}>
+    <div onClick={() => gotoDetail(data.id)} className={id && id == data.id ? selectedCardStyle : unSelectedCardStyle + " w-[18.32578rem]"}>
       <img className=" max-h-12 mb-5" src={data.Company.companyLogo} />
       <h2 className="font-bold text-[#512eaa]">{data.title}</h2>
       <h3 className="text-[14px] text-slate-800 mb-4">{data.Company.name}</h3>

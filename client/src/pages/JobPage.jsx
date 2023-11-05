@@ -19,7 +19,7 @@ export default function JobPage() {
       <div className="flex justify-center bg-[#f7f8fb]">
         <div className="flex max-h-[633px] w-[90vw]">
           <div className="flex flex-col w-[38%] bg-[#f7f8fb] py-5 border-r-2 gap-3 overflow-auto">
-            <p className="text-center">
+            <p className="ps-4 text-slate-800">
               <span className="font-bold">1-{jobs.length}</span> dari {jobs.length} lowongan
             </p>
             {jobs.map((job) => (
