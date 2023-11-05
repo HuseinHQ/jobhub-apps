@@ -1,6 +1,7 @@
 import { FETCH_JOBS_SUCCESS, FETCH_JOB_BY_ID_SUCCESS, FETCH_COMPANIES_SUCCESS, FETCH_COMPANY_BY_ID_SUCCESS } from "./actionType";
 
-const baseURL = "http://localhost:3000";
+// const baseURL = "http://localhost:3000";
+const baseURL = "https://jobhub-server.huseinhk.me";
 
 // JOBS SUCCESS ACTION
 const fecthJobSuccess = (payload) => ({ type: FETCH_JOBS_SUCCESS, payload });

@@ -4,7 +4,7 @@ const fetchJobsSuccess = (payload) => ({ type: FETCH_JOB_SUCCESS, payload });
 const fetchJobByIdSuccess = (payload) => ({ type: FETCH_JOB_BY_ID_SUCCESS, payload });
 const fetchCompaniesSuccess = (payload) => ({ type: FETCH_COMPANIES_SUCCESS, payload });
 
-const baseURL = "http://localhost:3000/public/";
+const baseURL = "https://jobhub-server.huseinhk.me/public/";
 
 export const fetchJobs = () => async (dispatch) => {
   try {
